@@ -2,39 +2,36 @@
 
 #include "../GameObject.h"
 
-class Player
+class Player : public GameObject
 {
 private:
-	//位置情報
-    int animation[2];
-	//進行方向情報
-	Vector2D direction;
-	//半径
-	float radius;
+    int animation[2];      //アニメーション画像
+	int animation_count;   //アニメーション時間
+    int flip_flag;         //反転フラグ
+	
 
 public:
 	//コンストラクタ
 	Player();
-	Player(float x, float y);
-	Player(Vector2D location);
 	//デストラクタ
 	~Player();
 
-	//更新処理
-	void Update();
-	//描画処理（constメンバ関数）
-	void Draw() const;
 
-	//位置情報設定（floatでオーバーロード）
-	void SetLocation(float x, float y);
-	//位置情報設定（vector2Dでオーバーロード）
-	void SetLocation(Vector2D location);
-	//位置情報（constメンバにする）
-	Vector2D GetLocation() const;
-	//半径情報の取得
-	float GetRadius();
+	//初期化処理
+	virtual void Initialize() override;
+	//更新処理
+	virtual void Update() override;
+	//描画処理（constメンバ関数）
+	virtual void Draw() const override;
+	//終了時処理
+	virtual void Finalize() override;
+
+	//当たり判定通知処理
+	virtual void OnHitCollision(GameObject* hit_object) override;
 
 private:
 	//移動処理
 	void Movement();
+	//アニメーション制御
+	void AnimationControl();
 };

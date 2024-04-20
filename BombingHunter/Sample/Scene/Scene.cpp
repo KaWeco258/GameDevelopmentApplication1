@@ -46,13 +46,13 @@ void Scene::Draw() const
 void Scene::Finalize()
 {
 	//動的配列が空なら処理を終了する
-	if (object.empty())
+	if (objects.empty())
 	{
 		return;
 	}
 
 	//各オブジェクトを削除する
-	for (GameObject* obj : object)
+	for (GameObject* obj : objects)
 	{
 		obj->Finalize();
 		delete obj;

@@ -21,8 +21,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	}
 
 	//ローカル変数定義
-	Scene* scene = new Scene();
-	int result = 0;
+	Scene* scene = new Scene();  //シーン情報
+	int result = 0;              //終了状態情報
 
 	//裏画面から描画を行う
 	SetDrawScreen(DX_SCREEN_BACK);
@@ -37,12 +37,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 		{
 			//更新処理
 			InputControl::Update();
+
+			//シーンの更新処理
 			scene->Update();
 
-			//画面を初期化
+			//画面の初期化
 			ClearDrawScreen();
 
-			//ボールの描画処理
+			//シーンの描画処理
 			scene->Draw();
 
 			//裏画面の内容を表画面反映

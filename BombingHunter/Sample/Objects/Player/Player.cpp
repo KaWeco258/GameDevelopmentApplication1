@@ -1,91 +1,130 @@
 #include "Player.h"
-#include "../Utility/InputControl.h"
+#include "../../Utility/InputControl.h"
 #include "DxLib.h"
 
 //コンストラクタ
-Player::Player() : location(), direction(0.0f), radius(15.0f)
+Player::Player() : animation_count(0), flip_flag(FALSE)
 {
-}
-
-Player::Player(float x, float y) : location(x, y), direction(0.0f), radius(15.0f)
-{
-}
-
-Player::Player(Vector2D location) : direction(0.0f), radius(15.0f)
-{
-	this->location = location;
+	animation[0] = NULL;
+	animation[1] = NULL;
 }
 
 //デストラクタ
 Player::~Player()
 {
-
+	
 }
 
+
+//初期化処理
+void Player::Initialize()
+{
+	//画像の読み込み
+	animation[0] = LoadGraph("Resource/Images/Tri-pilot/1.png");
+	animation[1] = LoadGraph("Resource/Images/Tri-pilot/2.png");
+
+	//エラーチェック
+	if (animation[0] == -1 || animation[1] == -1)
+	{
+		throw("鳥パイロットの画像がありません\n");
+	}
+
+	//向きの設定
+	radian = 0.0f;
+
+	//当たり判定の大きさを設定
+	box_size = Vector2D(64.0f);
+
+	//初期画像の設定
+	image = animation[0];
+}
 //更新処理
 void Player::Update()
 {
 	//移動処理
 	Movement();
+
+	//アニメーション制御
+	AnimationControl();
 }
 
 //描画処理
 void Player::Draw() const
 {
-	//メンバ変数の値をもとに円を描画する
-	DrawCircleAA(location.x, location.y, radius, 50, GetColor(255, 255, 255), TRUE);
+	//プレイヤー画像の描画
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image,TRUE,flip_flag);
+
+//デバッグ用
+#if _DEBUG
+	//当たり判定の可視化
+	Vector2D ul = location - (box_size / 2.0f);
+	Vector2D br = location + (box_size / 2.0f);
+
+	DrawBoxAA(ul.x, ul. y, br.x, br.y, GetColor(255, 0, 0), FALSE);
+#endif	   
 }
 
-//位置情報設定処理
-void Player::SetLocation(float x, float y)
+//終了時処理
+void Player::Finalize()
 {
-	SetLocation(Vector2D(x, y));
-}
-void Player::SetLocation(Vector2D location)
-{
-	this->location = location;
+	//使用した画像を解放
+	DeleteGraph(animation[0]);
+	DeleteGraph(animation[1]);
 }
 
-//位置情報取得
-Vector2D Player::GetLocation() const
+//当たり判定通知処理
+void Player::OnHitCollision(GameObject*hit_object)
 {
-	return location;
+	//当たった時の処理
 }
 
-//円の半径の大きさを取得
-float Player::GetRadius()
-{
-	return radius;
-}
 
 //移動処理
 void Player::Movement()
 {
-	//静的メンバを呼び出して、入力情報を取得する
-	//上矢印キーを押したら円を上方向へ進行させる
-	if (InputControl::GetKeyDown(KEY_INPUT_UP))
-	{
-		direction.y = -1.0f;
-	}
+	//移動の速さ
+	Vector2D velocity = 0.0f;
 
-	//下矢印キーを押したら円を下方向へ進行させる
-	if (InputControl::GetKeyDown(KEY_INPUT_DOWN))
-	{
-		direction.y = 1.0f;
-	}
 
-	//右矢印キーを押したら円を右方向へ進行させる
-	if (InputControl::GetKeyDown(KEY_INPUT_RIGHT))
+	//左右移動
+	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
-		direction.x = 1.0f;
+		velocity.x += -1.0f;
+		flip_flag = TRUE;
 	}
-
-	//左矢印キーを押したら円を左方向へ進行させる
-	if (InputControl::GetKeyDown(KEY_INPUT_LEFT))
+	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
-		direction.x = -1.0f;
+		velocity.x += 1.0f;
+		flip_flag = FALSE;
 	}
+	else
+	{
+		velocity.x = 0.0f;
+	}
+	//現在の位置座標に速さを加算する
+	location += velocity;
+}
 
-	//位置座標を進行方向に代入する
-	location += direction;
+//アニメーション制御
+void Player::AnimationControl()
+{
+	//アニメーションカウントを計算する
+	animation_count++;
+
+	//60フレーム目に到達したら
+	if (animation_count >= 60)
+	{
+		//カウントをリセット
+		animation_count = 0;
+
+		//画像の切り替え
+		if (image == animation[0])
+		{
+			image = animation[1];
+		}
+		else
+		{
+			image = animation[0];
+		}
+	}
 }
