@@ -12,9 +12,15 @@ protected:
 	int image;             //描画する画像
 	int sound;             //再生する音源
 
+private:
+	int animation[2];      //アニメーション画像
+	int animation_count;   //アニメーション時間
+	int flip_flag;         //反転フラグ
+
+
 public:
-	GameObject();
-	virtual ~GameObject();
+	GameObject();                  //コンストラクタ
+	virtual ~GameObject();         //デストラクタ
 
 	virtual void Initialize();     //初期化処理
 	virtual void Update();         //更新処理
@@ -22,10 +28,15 @@ public:
 	virtual void Finalize();       //終了時処理
 
 	//当たり判定通知処理
-	virtual void OnHitCollision(GameObject*hit_object);
+	virtual void OnHitCollision(GameObject* hit_object);
 
 	//位置情報取得処理
 	Vector2D GetLocation() const;
 	//位置情報変更処理
 	void SetLocation(const Vector2D& location);
+
+private:
+	//アニメーション制御
+	void AnimationControl();
+
 };

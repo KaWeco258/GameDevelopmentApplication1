@@ -20,6 +20,7 @@ void Scene::Initialize()
 {
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<GameObject>(Vector2D(320.0f, 240.0f));
 }
 
 //更新処理

@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 //コンストラクタ
 GameObject::GameObject() :
 	location(0.0f),
@@ -8,6 +9,7 @@ GameObject::GameObject() :
 	image(0),
 	sound(0)
 {
+	
 
 }
 
@@ -20,13 +22,13 @@ GameObject::~GameObject()
 //初期化処理
 void GameObject::Initialize()
 {
-
+	
 }
 
 //更新処理
 void GameObject::Update()
 {
-
+	
 }
 
 //描画処理
@@ -58,3 +60,6 @@ void GameObject::SetLocation(const Vector2D& location)
 {
 	this->location = location;
 }
+
+
+

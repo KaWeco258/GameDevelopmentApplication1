@@ -31,6 +31,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	{
 		//シーンの初期化処理
 		scene->Initialize();
+		
 
 		//メインループ
 		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
@@ -40,12 +41,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 			//シーンの更新処理
 			scene->Update();
+			
 
 			//画面の初期化
 			ClearDrawScreen();
 
 			//シーンの描画処理
 			scene->Draw();
+			
 
 			//裏画面の内容を表画面反映
 			ScreenFlip();

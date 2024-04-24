@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 //コンストラクタ
 GameObject::GameObject() :
 	location(0.0f),
@@ -8,6 +9,7 @@ GameObject::GameObject() :
 	image(0),
 	sound(0)
 {
+
 
 }
 
@@ -58,3 +60,6 @@ void GameObject::SetLocation(const Vector2D& location)
 {
 	this->location = location;
 }
+
+
+
