@@ -29,8 +29,7 @@ void Enemy::Initialize()
 		throw("WingEnemyの画像がありません\n");
 	}
 
-	//向きの設定
-	radian = 0.0f;
+	
 
 	//当たり判定の大きさを設定
 	scale = 64.0f;
@@ -44,7 +43,9 @@ void Enemy::Initialize()
 //更新処理
 void Enemy::Update()
 {
+	//Enemyの移動処理
 	location.x += 1.0f;
+	
 
 	//画面左で消えたらまた画面右から生成する
 	if (location.x >= 640.0f)
@@ -60,7 +61,16 @@ void Enemy::Update()
 void Enemy::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraphF(0.0, 0.0, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+
+	//デバッグ用
+#if _DEBUG
+	//当たり判定の可視化
+	Vector2D ul = location - (scale / 2.0f);
+	Vector2D br = location + (scale / 2.0f);
+
+	DrawBoxAA(ul.x, ul.y, br.x, br.y, GetColor(255, 255, 255), FALSE);
+#endif
 }
 
 //終了時処理
@@ -72,7 +82,7 @@ void Enemy::Finalize()
 }
 
 //当たり判定通知処理
-void Enemy::OnHitCollision(Enemy* hit_object)
+void Enemy::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時に行う処理
 }

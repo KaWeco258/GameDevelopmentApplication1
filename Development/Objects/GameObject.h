@@ -12,10 +12,7 @@ protected:
 	int image;             //描画する画像
 	int sound;             //再生する音源
 
-private:
-	int animation[2];      //アニメーション画像
-	int animation_count;   //アニメーション時間
-	int flip_flag;         //反転フラグ
+
 
 
 public:
@@ -35,8 +32,6 @@ public:
 	//位置情報変更処理
 	void SetLocation(const Vector2D& location);
 
-private:
-	//アニメーション制御
-	void AnimationControl();
+
 
 };
