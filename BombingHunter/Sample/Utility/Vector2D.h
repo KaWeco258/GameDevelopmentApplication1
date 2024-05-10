@@ -43,6 +43,6 @@ public:
 	Vector2D& operator /= (const float& scalar);
 	Vector2D& operator /= (const Vector2D& location);
 
-	//整数型へキャストする
-	void ToInt(int* x, int* y)const;
+	//整数型にキャストする
+	void ToInt(int* x, int* y);
 };

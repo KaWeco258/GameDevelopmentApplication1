@@ -5,8 +5,10 @@
 //ここからプログラムが始める
 
 //メイン関数
-int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
-	_In_ LPSTR lpCmdLine, _In_ int nShowCmd)
+int WINAPI WinMain(_In_ HINSTANCE hInstance,
+	_In_opt_ HINSTANCE hPrevInstance,
+	_In_ LPSTR lpCmdLine, 
+	_In_ int nShowCmd)
 {
 	//ウィンドウモードで起動
 	ChangeWindowMode(TRUE);
@@ -17,24 +19,25 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	//Dxライブラリの初期化処理
 	if (DxLib_Init() == -1)
 	{
+		//異常を通知
 		return -1;
 	}
-
-	//ローカル変数定義
-	Scene* scene = new Scene();  //シーン情報
-	GameObject* object = new GameObject();  //シーン情報
-	int result = 0;              //終了状態情報
-
 	//裏画面から描画を行う
 	SetDrawScreen(DX_SCREEN_BACK);
+
+	//ローカル変数定義
+	Scene* scene = new Scene();  //シーンを生成
+	int result = 0;              //終了状態情報
+
+	
 
 	try
 	{
 		//シーンの初期化処理
 		scene->Initialize();
-		object->Initialize();
 
 		//メインループ
+		//ESCキーが押されたら、ループを終了
 		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
 		{
 			//更新処理
@@ -42,14 +45,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 
 			//シーンの更新処理
 			scene->Update();
-			object->Update();
 
 			//画面の初期化
 			ClearDrawScreen();
 
 			//シーンの描画処理
 			scene->Draw();
-			object->Draw();
 
 			//裏画面の内容を表画面反映
 			ScreenFlip();
@@ -69,11 +70,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	if (scene != nullptr)
 	{
 		scene->Finalize();
-		object->Finalize();
 		delete scene;
-		delete object;
 		scene = nullptr;
-		object = nullptr;
 	}
 
 

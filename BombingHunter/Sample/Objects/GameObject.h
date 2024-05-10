@@ -2,20 +2,19 @@
 
 #include "../Utility/Vector2D.h"
 
+#define D_PIVOT_CENTER  //座標の頂点を画像の中心にする
+
 //ゲームオブジェクト基底クラス
 class GameObject
 {
 protected:
 	Vector2D location;     //位置情報
-	double scale;          //大きさ
+	Vector2D box_size;          //大きさ
 	double radian;         //向き
 	int image;             //描画する画像
 	int sound;             //再生する音源
 
-private:
-	int animation[2];      //アニメーション画像
-	int animation_count;   //アニメーション時間
-	int flip_flag;         //反転フラグ
+
 
 
 public:
@@ -35,8 +34,6 @@ public:
 	//位置情報変更処理
 	void SetLocation(const Vector2D& location);
 
-private:
-	//アニメーション制御
-	void AnimationControl();
-
+    //当たり判定の大きさを取得する
+	Vector2D GetBoxSize() const;
 };
