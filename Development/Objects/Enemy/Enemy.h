@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../GameObject.h"
-#include "../../Utility/Vector2D.h"
+
 
 //ゲームオブジェクト基底クラス
 class Enemy : public GameObject
@@ -9,12 +9,12 @@ class Enemy : public GameObject
 private:
 	int animation[2];      //アニメーション画像
 	int animation_count;   //アニメーション時間
-	int flip_flag;         //反転フラグ
+	Vector2D direction;     //進行方向
 
 
 public:
 	Enemy();                  //コンストラクタ
-	virtual ~Enemy();         //デストラクタ
+	~Enemy();                 //デストラクタ
 
 	virtual void Initialize() override;     //初期化処理
 	virtual void Update() override;         //更新処理
@@ -24,9 +24,11 @@ public:
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object) override;
 
-	
+
 
 private:
+	//移動処理
+	void Movement();
 	//アニメーション制御
 	void AnimationControl();
 

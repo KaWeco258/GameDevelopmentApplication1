@@ -33,7 +33,7 @@ void Player::Initialize()
 	radian = 0.0f;
 
 	//当たり判定の大きさを設定
-	scale = 64.0f;
+	box_size = 64.0f;
 
 	//初期画像の設定
 	image = animation[0];
@@ -57,10 +57,12 @@ void Player::Draw() const
 	//デバッグ用
 #if _DEBUG
 	//当たり判定の可視化
-	Vector2D ul = location - (scale / 2.0f);
-	Vector2D br = location + (scale / 2.0f);
+	Vector2D box_collision_upper_left = location - (box_size / 2.0f);
+	Vector2D box_collision_lower_right = location + (box_size / 2.0f);
 
-	DrawBoxAA(ul.x, ul.y, br.x, br.y, GetColor(255, 0, 0), FALSE);
+	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
+		box_collision_lower_right.x, box_collision_lower_right.y,
+		GetColor(255, 0, 0), FALSE);
 #endif	   
 }
 
