@@ -29,7 +29,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 	Scene* scene = new Scene();  //シーンを生成
 	int result = 0;              //終了状態情報
 
-
+	
 
 	try
 	{
@@ -40,6 +40,9 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 		//ESCキーが押されたら、ループを終了
 		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
 		{
+			int bg=LoadGraph("Resource/Images/BackGround.png");
+			DrawRotaGraphF(640.0, 480.0, 1.0, 0.0, bg, TRUE);
+
 			//更新処理
 			InputControl::Update();
 

@@ -7,7 +7,7 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects()
+Scene::Scene() : objects(),bg(0)
 {
 
 }
@@ -22,6 +22,9 @@ Scene::~Scene()
 //初期化処理
 void Scene::Initialize()
 {
+	bg = LoadGraph("Resource/Images/BackGround.png");
+	
+
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 240.0f));
 }
@@ -56,6 +59,8 @@ void Scene::Update()
 //描画処理
 void Scene::Draw() const
 {
+	DrawExtendGraph(0.0, 0.0, 640.0, 550.0, bg, FALSE);
+
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{

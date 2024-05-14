@@ -8,6 +8,7 @@ class Scene
 {
 private:
 	std::vector<GameObject*> objects;  //オブジェクトリスト
+	int bg;
 
 public:
 	Scene();
