@@ -38,7 +38,7 @@ void Enemy::Initialize()
 	image = animation[0];
 
 	//初期進行方向の設定
-	direction = Vector2D(1.0f, -0.5f);
+	direction = Vector2D(1.0f, 0.0f);
 
 
 }
@@ -69,7 +69,7 @@ void Enemy::Draw() const
 	}
 
 	//情報をもとにハコテキ画像を描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.8, radian, image, TRUE, flip_flag);
 
 	//親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -95,13 +95,13 @@ void Enemy::Movement()
 {
 	//画面端に到達したら、進行方向を反転させる
 	if (((location.x + direction.x) < box_size.x) ||
-		(640.0f - box_size.x) < (location.x + direction.x))
+		(940.0f - box_size.x) < (location.x + direction.x))
 	{
 		direction.x *= -1.0f;
 	}
 
 	if (((location.y + direction.y) < box_size.y) ||
-		(480.0f - box_size.y) < (location.y + direction.y))
+		(580.0f - box_size.y) < (location.y + direction.y))
 	{
 		direction.y *= -1.0f;
 	}

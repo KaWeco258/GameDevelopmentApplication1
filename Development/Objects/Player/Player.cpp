@@ -52,7 +52,7 @@ void Player::Update()
 void Player::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.8, radian, image, TRUE, flip_flag);
 
 	//デバッグ用
 #if _DEBUG
@@ -91,17 +91,28 @@ void Player::Movement()
 	//左右移動
 	if (InputControl::GetKey(KEY_INPUT_LEFT))
 	{
-		velocity.x += -1.0f;
+		velocity.x += -2.0f;
 		flip_flag = TRUE;
 	}
 	else if (InputControl::GetKey(KEY_INPUT_RIGHT))
 	{
-		velocity.x += 1.0f;
+		velocity.x += 2.0f;
 		flip_flag = FALSE;
 	}
 	else
 	{
 		velocity.x = 0.0f;
+	}
+	//画面外に行かないようにする
+	if (location.x < (box_size.x / 2.0f))
+	{
+		velocity.x = 0.0f;
+		location.x = box_size.x / 2.0f;
+	}
+	else if (location.x > (940.0f - box_size.x / 2.0f))
+	{
+		velocity.x = 0.0f;
+		location.x = 940.0f - box_size.x / 2.0f;
 	}
 	//現在の位置座標に速さを加算する
 	location += velocity;
@@ -114,7 +125,7 @@ void Player::AnimationControl()
 	animation_count++;
 
 	//60フレーム目に到達したら
-	if (animation_count >= 60)
+	if (animation_count >= 30)
 	{
 		//カウントをリセット
 		animation_count = 0;

@@ -26,7 +26,7 @@ void Scene::Initialize()
 	
 
 	//プレイヤーを生成する
-	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<Player>(Vector2D(320.0f, 50.0f));
 }
 
 //更新処理
@@ -51,7 +51,7 @@ void Scene::Update()
 	//Zキーを押したら、敵を生成
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
-		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
+		CreateObject<Enemy>(Vector2D(100.0f, 520.0f));
 	}
 
 }
@@ -59,7 +59,7 @@ void Scene::Update()
 //描画処理
 void Scene::Draw() const
 {
-	DrawExtendGraph(0.0, 0.0, 640.0, 550.0, bg, FALSE);
+	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
 
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
