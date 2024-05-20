@@ -11,7 +11,9 @@ protected:
 	Vector2D location;     //ˆÊ’uî•ñ
 	Vector2D box_size;          //‘å‚«‚³
 	double radian;         //Œü‚«
-	int image;             //•`‰æ‚·‚é‰æ‘œ
+	int boxenemy_image;             //•`‰æ‚·‚é‰æ‘œ
+	int wingenemy_image;             //•`‰æ‚·‚é‰æ‘œ
+	int player_image;             //•`‰æ‚·‚é‰æ‘œ
 	int sound;             //Ä¶‚·‚é‰¹Œ¹
 
 

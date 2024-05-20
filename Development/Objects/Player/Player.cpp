@@ -36,7 +36,7 @@ void Player::Initialize()
 	box_size = 64.0f;
 
 	//初期画像の設定
-	image = animation[0];
+	player_image = animation[0];
 }
 //更新処理
 void Player::Update()
@@ -52,7 +52,7 @@ void Player::Update()
 void Player::Draw() const
 {
 	//プレイヤー画像の描画
-	DrawRotaGraphF(location.x, location.y, 0.8, radian, image, TRUE, flip_flag);
+	DrawRotaGraphF(location.x, location.y, 0.8, radian, player_image, TRUE, flip_flag);
 
 	//デバッグ用
 #if _DEBUG
@@ -131,13 +131,13 @@ void Player::AnimationControl()
 		animation_count = 0;
 
 		//画像の切り替え
-		if (image == animation[0])
+		if (player_image == animation[0])
 		{
-			image = animation[1];
+			player_image = animation[1];
 		}
 		else
 		{
-			image = animation[0];
+			player_image = animation[0];
 		}
 	}
 }

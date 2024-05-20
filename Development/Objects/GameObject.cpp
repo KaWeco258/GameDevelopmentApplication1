@@ -6,7 +6,8 @@ GameObject::GameObject() :
 	location(0.0f),
 	box_size(0.0),
 	radian(0.0),
-	image(0),
+	boxenemy_image(0),
+	wingenemy_image(0),
 	sound(0)
 {
 
