@@ -103,6 +103,7 @@ void Player::Movement()
 	{
 		velocity.x = 0.0f;
 	}
+	
 	//âÊñ äOÇ…çsÇ©Ç»Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
 	if (location.x < (box_size.x / 2.0f))
 	{
