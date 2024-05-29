@@ -3,7 +3,7 @@
 #include "../Objects/Player/Player.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
-#include "../Objects/Bomb.h"
+#include "../Objects/Bomb/Bomb.h"
 
 #define D_PIVOT_CENTER
 
@@ -57,7 +57,14 @@ void Scene::Update()
 	//スペースキーを押したら、爆弾を生成
 	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
 	{
-		CreateObject<Bomb>(Vector2D(250.0f, 100.0f));
+		for (int i = 0; i < objects.size(); i++)
+		{
+			if (dynamic_cast<Player*>(objects[i]) != nullptr)
+			{
+				CreateObject<Bomb>(objects[i]->GetLocation());
+			}
+		}
+		
 	}
 
 }

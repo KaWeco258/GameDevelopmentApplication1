@@ -40,7 +40,7 @@ void Bomb::Initialize()
 	
 
 	//初期進行方向の設定
-	direction = Vector2D(100.0f, 100.0f);
+	direction = Vector2D(1.0f, -0.5f);
 
 
 }
@@ -58,23 +58,23 @@ void Bomb::Update()
 void Bomb::Draw() const
 {
 	//画像フラグ
-	//int flip_flag = FALSE;
+	int flip_flag = FALSE;
 
 	//進行方向によって、反転状態を決定する
-	/*if (direction.x > 0.0f)
+	if (direction.x > 0.0f)
 	{
 		flip_flag = FALSE;
 	}
 	else
 	{
 		flip_flag = TRUE;
-	}*/
+	}
 
 	//情報をもとにハコテキ画像を描画
-	DrawRotaGraphF(location.x, location.y, 0.8, radian, bomb_image, TRUE);
+	DrawRotaGraphF(location.x, location.y, 0.8, radian, bomb_image, TRUE, flip_flag);                
 
 	//親クラスの描画処理を呼び出す
-	//__super::Draw();
+	__super::Draw();
 }
 
 //終了時処理
@@ -95,16 +95,16 @@ void Bomb::OnHitCollision(Bomb* hit_object)
 //移動処理
 void Bomb::Movement()
 {
-	//画面端に到達したら、進行方向を反転させる
-	if (((location.y + direction.y) < box_size.y) ||
-		(580.0f - box_size.y) < (location.y + direction.y))
-	{
-		//使用した画像を解放
-		DeleteGraph(bomb_animation);
-	}
+	////画面端に到達したら、進行方向を反転させる
+	//if (((location.y + direction.y) < box_size.y) ||
+	//	(580.0f - box_size.y) < (location.y + direction.y))
+	//{
+	//	//使用した画像を解放
+	//	DeleteGraph(bomb_animation);
+	//}
 
-	//進行方向に向かって、位置座標を変更する
-	location += direction;
+	////進行方向に向かって、位置座標を変更する
+	//location += direction;
 }
 
 

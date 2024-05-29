@@ -117,7 +117,7 @@ void Enemy::Movement()
 	{
 		direction.y *= -1.0f;
 	}
-
+   
 	//進行方向に向かって、位置座標を変更する
 	location += direction;
 }

@@ -1,20 +1,20 @@
 #pragma once
 
-#include "../Utility/Vector2D.h"
 
+#include "../GameObject.h"
 
 //ゲームオブジェクト基底クラス
-class Bomb
+class Bomb : public GameObject
 
 {
 private:
-	int animation_count;   //アニメーション時間
-	Vector2D direction;     //進行方向
-	int bomb_animation;             //描画する画像
-	double radian;         //向き
-	Vector2D location;     //位置情報
-	Vector2D box_size;          //大きさ
-	int bomb_image;             //描画する画像
+	int animation_count;      //アニメーション時間
+	Vector2D direction;       //進行方向
+	int bomb_animation;       //描画する画像
+	double radian;            //向き
+	Vector2D location;        //位置情報
+	Vector2D box_size;        //大きさ
+	int bomb_image;           //描画する画像
 
 
 public:

@@ -22,13 +22,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 		//異常を通知
 		return -1;
 	}
-	//裏画面から描画を行う
-	SetDrawScreen(DX_SCREEN_BACK);
+	
 
 	//ローカル変数定義
 	Scene* scene = new Scene();  //シーンを生成
 	int result = 0;              //終了状態情報
 
+	//裏画面から描画を行う
+	SetDrawScreen(DX_SCREEN_BACK);
 	
 
 	try
