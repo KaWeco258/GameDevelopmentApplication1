@@ -121,7 +121,7 @@ void Enemy::Movement()
 	//進行方向に向かって、位置座標を変更する
 	location += direction;
 }
-
+ 
 
 //アニメーション制御
 void Enemy::AnimationControl()

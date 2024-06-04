@@ -12,7 +12,7 @@ private:
 	Vector2D direction;       //is•ûŒü
 	int bomb_animation;       //•`‰æ‚·‚é‰æ‘œ
 	double radian;            //Œü‚«
-	Vector2D location;        //ˆÊ’uî•ñ
+
 	Vector2D box_size;        //‘å‚«‚³
 	int bomb_image;           //•`‰æ‚·‚é‰æ‘œ
 

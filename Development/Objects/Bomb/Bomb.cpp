@@ -2,7 +2,7 @@
 #include "DxLib.h"
 
 //コンストラクタ
-Bomb::Bomb() : animation_count(0), direction(0.0f),location(0.0f),box_size(0.0),radian(0.0), bomb_image(0)
+Bomb::Bomb() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), bomb_image(0)
 {
 	bomb_animation = NULL;
 	
@@ -30,7 +30,7 @@ void Bomb::Initialize()
 	
 
 	//向きの設定
-	radian = 0.0f;
+	radian = -1.6f;
 
 	//当たり判定の大きさを設定
 	box_size = 64.0f;
@@ -105,6 +105,18 @@ void Bomb::Movement()
 
 	////進行方向に向かって、位置座標を変更する
 	//location += direction;
+
+	//一番下まで爆弾を落とす
+	if (((location.y + direction.y) < box_size.y) ||
+		(580.0f - box_size.y) < (location.y + direction.y))
+	{
+		direction.x = 0.0f;
+		direction.y *= 1.1f;
+	}
+
+	//現在の位置座標に速さを加算する
+	location -= direction;
+
 }
 
 
