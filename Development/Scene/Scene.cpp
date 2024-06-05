@@ -54,6 +54,7 @@ void Scene::Update()
 	{
 		CreateObject<Enemy>(Vector2D(100.0f, 520.0f));
 	}
+
 	//スペースキーを押したら、爆弾を生成
 	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
 	{

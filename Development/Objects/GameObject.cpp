@@ -8,6 +8,7 @@ GameObject::GameObject() :
 	radian(0.0),
 	boxenemy_image(0),
 	wingenemy_image(0),
+	player_image(0),
 	sound(0)
 {
 

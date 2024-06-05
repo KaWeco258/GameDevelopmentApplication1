@@ -8,13 +8,14 @@
 class GameObject
 {
 protected:
-	Vector2D location;     //ˆÊ’uî•ñ
+	Vector2D location;			//ˆÊ’uî•ñ
 	Vector2D box_size;          //‘å‚«‚³
-	double radian;         //Œü‚«
-	int boxenemy_image;             //•`‰æ‚·‚é‰æ‘œ
-	int wingenemy_image;             //•`‰æ‚·‚é‰æ‘œ
-	int player_image;             //•`‰æ‚·‚é‰æ‘œ
-	int sound;             //Ä¶‚·‚é‰¹Œ¹
+	double radian;				//Œü‚«
+	int boxenemy_image;         //•`‰æ‚·‚é‰æ‘œ(” “G)
+	int wingenemy_image;        //•`‰æ‚·‚é‰æ‘œ(‰H“G)
+	//int blast_image[3];        //•`‰æ‚·‚é‰æ‘œ(”š•—)
+	int player_image;           //•`‰æ‚·‚é‰æ‘œ(ƒvƒŒƒCƒ„[)
+	int sound;					//Ä¶‚·‚é‰¹Œ¹
 
 
 

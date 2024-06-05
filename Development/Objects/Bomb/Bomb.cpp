@@ -95,17 +95,7 @@ void Bomb::OnHitCollision(Bomb* hit_object)
 //移動処理
 void Bomb::Movement()
 {
-	////画面端に到達したら、進行方向を反転させる
-	//if (((location.y + direction.y) < box_size.y) ||
-	//	(580.0f - box_size.y) < (location.y + direction.y))
-	//{
-	//	//使用した画像を解放
-	//	DeleteGraph(bomb_animation);
-	//}
-
-	////進行方向に向かって、位置座標を変更する
-	//location += direction;
-
+	
 	//一番下まで爆弾を落とす
 	if (((location.y + direction.y) < box_size.y) ||
 		(580.0f - box_size.y) < (location.y + direction.y))
@@ -117,10 +107,17 @@ void Bomb::Movement()
 	//現在の位置座標に速さを加算する
 	location -= direction;
 
+
+	//地面についたら爆破する
+	/*if ()
+	{
+
+	}*/
+
 }
 
 
-//アニメーション制御
+////アニメーション制御
 //void Bomb::AnimationControl()
 //{
 //	//アニメーションカウントを計算する
