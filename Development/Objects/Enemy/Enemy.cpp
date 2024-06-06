@@ -95,12 +95,6 @@ void Enemy::Finalize()
 	DeleteGraph(wingenemy_animation[1]);
 }
 
-//当たり判定通知処理
-void Enemy::OnHitCollision(GameObject* hit_object)
-{
-	//当たった時に行う処理
-	direction = 0.0f;
-}
 
 //移動処理
 void Enemy::Movement()
@@ -122,6 +116,12 @@ void Enemy::Movement()
 	location += direction;
 }
  
+//当たり判定通知処理
+void Enemy::OnHitCollision(GameObject* hit_object)
+{
+	//当たった時に行う処理
+	direction = 0.0f;
+}
 
 //アニメーション制御
 void Enemy::AnimationControl()

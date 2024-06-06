@@ -8,9 +8,18 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0)
+Scene::Scene() : objects(),bg(0),ti(0)
 {
-
+	number[0] = NULL;
+	number[1] = NULL;
+	number[2] = NULL;
+	number[3] = NULL;
+	number[4] = NULL;
+	number[5] = NULL;
+	number[6] = NULL;
+	number[7] = NULL;
+	number[8] = NULL;
+	number[9] = NULL;
 }
 
 //デストラクタ
@@ -24,6 +33,17 @@ Scene::~Scene()
 void Scene::Initialize()
 {
 	bg = LoadGraph("Resource/Images/BackGround.png");
+	ti = LoadGraph("Resource/Images/TimeLimit/timer-03.png");
+	number[0] = LoadGraph("Resource/Images/Score/0.png");
+	number[1] = LoadGraph("Resource/Images/Score/1.png");
+	number[2] = LoadGraph("Resource/Images/Score/2.png");
+	number[3] = LoadGraph("Resource/Images/Score/3.png");
+	number[4] = LoadGraph("Resource/Images/Score/4.png");
+	number[5] = LoadGraph("Resource/Images/Score/5.png");
+	number[6] = LoadGraph("Resource/Images/Score/6.png");
+	number[7] = LoadGraph("Resource/Images/Score/7.png");
+	number[8] = LoadGraph("Resource/Images/Score/8.png");
+	number[9] = LoadGraph("Resource/Images/Score/9.png");
 	
 
 	//プレイヤーを生成する
@@ -68,12 +88,16 @@ void Scene::Update()
 		
 	}
 
+	
 }
 
 //描画処理
 void Scene::Draw() const
 {
 	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
+	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
+	DrawGraph(40.0, 588.0, ti, FALSE);
+
 
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)

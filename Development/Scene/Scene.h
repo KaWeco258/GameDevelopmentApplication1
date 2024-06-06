@@ -8,7 +8,9 @@ class Scene
 {
 private:
 	std::vector<GameObject*> objects;  //オブジェクトリスト
-	int bg;
+	int bg;  //背景画像
+	int ti;  //タイマーの画像
+	int number[10];   //数字の画像
 
 public:
 	Scene();

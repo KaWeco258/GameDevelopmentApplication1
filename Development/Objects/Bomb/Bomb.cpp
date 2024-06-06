@@ -75,6 +75,17 @@ void Bomb::Draw() const
 
 	//親クラスの描画処理を呼び出す
 	__super::Draw();
+
+	//デバッグ用
+#if _DEBUG
+	//当たり判定の可視化
+	Vector2D box_collision_upper_left = location - (box_size / 2.0f);
+	Vector2D box_collision_lower_right = location + (box_size / 2.0f);
+
+	DrawBoxAA(box_collision_upper_left.x, box_collision_upper_left.y,
+		box_collision_lower_right.x, box_collision_lower_right.y,
+		GetColor(255, 0, 0), FALSE);
+#endif	   
 }
 
 //終了時処理
@@ -85,12 +96,7 @@ void Bomb::Finalize()
 	
 }
 
-//当たり判定通知処理
-void Bomb::OnHitCollision(Bomb* hit_object)
-{
-	//当たった時に行う処理
-	direction = 0.0f;
-}
+
 
 //移動処理
 void Bomb::Movement()
@@ -116,6 +122,13 @@ void Bomb::Movement()
 
 }
 
+//当たり判定通知処理
+void Bomb::OnHitCollision(Bomb* hit_object)
+{
+	//当たった時に行う処理
+	location = 0.0f;
+	direction.y = 0.0f;
+}
 
 ////アニメーション制御
 //void Bomb::AnimationControl()

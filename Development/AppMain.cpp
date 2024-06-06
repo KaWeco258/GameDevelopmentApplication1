@@ -14,7 +14,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 	ChangeWindowMode(TRUE);
 
 	//ウィンドウサイズ（横：640px,縦：480px）を設定
-	SetGraphMode(940, 580, 32);
+	SetGraphMode(940, 645, 32);
 
 	//Dxライブラリの初期化処理
 	if (DxLib_Init() == -1)
@@ -41,8 +41,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 		//ESCキーが押されたら、ループを終了
 		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
 		{
-			int bg=LoadGraph("Resource/Images/BackGround.png");
-			DrawRotaGraphF(640.0, 480.0, 1.0, 0.0, bg, TRUE);
+			
 
 			//更新処理
 			InputControl::Update();
