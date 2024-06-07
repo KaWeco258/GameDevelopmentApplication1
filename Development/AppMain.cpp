@@ -13,7 +13,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 	//ウィンドウモードで起動
 	ChangeWindowMode(TRUE);
 
-	//ウィンドウサイズ（横：640px,縦：480px）を設定
+	//ウィンドウサイズ（横：940px,縦：645px）を設定
 	SetGraphMode(940, 645, 32);
 
 	//Dxライブラリの初期化処理

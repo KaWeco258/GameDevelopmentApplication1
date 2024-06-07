@@ -8,7 +8,7 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0)
 {
 	number[0] = NULL;
 	number[1] = NULL;
@@ -31,9 +31,12 @@ Scene::~Scene()
 
 //初期化処理
 void Scene::Initialize()
-{
-	bg = LoadGraph("Resource/Images/BackGround.png");
-	ti = LoadGraph("Resource/Images/TimeLimit/timer-03.png");
+{	
+	//背景画像の読込み
+	bg = LoadGraph("Resource/Images/BackGround.png");   
+	//タイマーの画像の読込み
+	ti = LoadGraph("Resource/Images/TimeLimit/timer-03.png");     
+	//数字の画像の読込み
 	number[0] = LoadGraph("Resource/Images/Score/0.png");
 	number[1] = LoadGraph("Resource/Images/Score/1.png");
 	number[2] = LoadGraph("Resource/Images/Score/2.png");
@@ -44,6 +47,10 @@ void Scene::Initialize()
 	number[7] = LoadGraph("Resource/Images/Score/7.png");
 	number[8] = LoadGraph("Resource/Images/Score/8.png");
 	number[9] = LoadGraph("Resource/Images/Score/9.png");
+	//スコアという文字の画像の読込み
+	si = LoadGraph("Resource/Images/Score/font-21.png");
+	//ハイスコアという文字の画像の読込み
+	hsi = LoadGraph("Resource/Images/Score/hs.png");
 	
 
 	//プレイヤーを生成する
@@ -94,10 +101,24 @@ void Scene::Update()
 //描画処理
 void Scene::Draw() const
 {
+	int StartTime;
+	//現在経過時間を得る
+	StartTime = GetNowCount();
+	//背景画像の描画
 	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
+	//画面の一番下に黒い四角形の図形の描画
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
-	DrawGraph(40.0, 588.0, ti, FALSE);
+	//タイマーの画像の描画
+	DrawGraph(30.0, 588.0, ti, FALSE);
+	//60秒たったらゲームを終了する
+	/*while ((60000-(GetNowCount() - StartTime)/1000>0))
+	{
 
+	}*/
+	//スコアという文字の画像の描画
+	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
+	//ハイスコアという文字の画像の描画
+	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
 
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)

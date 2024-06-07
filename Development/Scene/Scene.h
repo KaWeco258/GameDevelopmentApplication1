@@ -11,6 +11,8 @@ private:
 	int bg;  //背景画像
 	int ti;  //タイマーの画像
 	int number[10];   //数字の画像
+	int si;    //スコアという文字の画像
+	int hsi;   //ハイスコアという文字の画像
 
 public:
 	Scene();
