@@ -101,6 +101,7 @@ void Scene::Update()
 //描画処理
 void Scene::Draw() const
 {
+	int i;
 	int StartTime;
 	//現在経過時間を得る
 	StartTime = GetNowCount();
@@ -110,16 +111,21 @@ void Scene::Draw() const
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
 	//タイマーの画像の描画
 	DrawGraph(30.0, 588.0, ti, FALSE);
-	//60秒たったらゲームを終了する
-	/*while ((60000-(GetNowCount() - StartTime)/1000>0))
-	{
-
-	}*/
+	
 	//スコアという文字の画像の描画
 	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
 	//ハイスコアという文字の画像の描画
 	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
+	//60秒たったらゲームを終了する
+	while (GetNowCount()-StartTime<1000*60)
+	{
+		for (i = 0; i <= 60; i++)
+		{
+			DrawFormatString(60.0, 588.0, GetColor(255, 0, 0), "%01d", 60 - i, TRUE);
+			/*GetNowCount() = GetNowCount() + 1000;*/
+		}
 
+	}
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{
