@@ -8,7 +8,7 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0)
 {
 	number[0] = NULL;
 	number[1] = NULL;
@@ -51,6 +51,8 @@ void Scene::Initialize()
 	si = LoadGraph("Resource/Images/Score/font-21.png");
 	//ハイスコアという文字の画像の読込み
 	hsi = LoadGraph("Resource/Images/Score/hs.png");
+	//制限時間の初期化
+	GameTime = TIMELIMIT;
 	
 
 	//プレイヤーを生成する
@@ -95,16 +97,23 @@ void Scene::Update()
 		
 	}
 
-	
+	//制限時間の更新
+	GameTime--;
+	//制限時間が無くなったら、ゲームオーバーに遷移する
+	if (GameTime < 0)
+	{
+		//Change_Scene(E_GAME_OVER);
+		GameTime = 0;
+	}
 }
 
 //描画処理
 void Scene::Draw() const
 {
-	int i;
-	int StartTime;
+	/*int i;
+	int StartTime;*/
 	//現在経過時間を得る
-	StartTime = GetNowCount();
+	/*StartTime = GetNowCount();*/
 	//背景画像の描画
 	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
 	//画面の一番下に黒い四角形の図形の描画
@@ -117,15 +126,19 @@ void Scene::Draw() const
 	//ハイスコアという文字の画像の描画
 	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
 	//60秒たったらゲームを終了する
-	while (GetNowCount()-StartTime<1000*60)
-	{
-		for (i = 0; i <= 60; i++)
-		{
-			DrawFormatString(60.0, 588.0, GetColor(255, 0, 0), "%01d", 60 - i, TRUE);
-			/*GetNowCount() = GetNowCount() + 1000;*/
-		}
+	//while (GetNowCount()-StartTime<1000*60)
+	//{
+	//	for (i = 0; i <= 60; i++)
+	//	{
+	//		DrawFormatString(60.0, 588.0, GetColor(255, 0, 0), "%01d", 60 - i, TRUE);
+	//		/*GetNowCount() = GetNowCount() + 1000;*/
+	//	}
 
-	}
+	//}
+	
+	//制限時間の描画
+	DrawFormatString(100.0, 608.0, GetColor(255, 0, 0), "%d秒", GameTime/150, TRUE);
+
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{

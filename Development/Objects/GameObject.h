@@ -4,6 +4,7 @@
 
 #define D_PIVOT_CENTER  //座標の頂点を画像の中心にする
 
+
 //ゲームオブジェクト基底クラス
 class GameObject
 {

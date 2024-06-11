@@ -1,5 +1,5 @@
 #pragma once
-
+#define TIMELIMIT (600*15)  //制限時間（1分）
 
 #include  "../Objects/GameObject.h"
 #include <vector>
@@ -13,6 +13,7 @@ private:
 	int number[10];   //数字の画像
 	int si;    //スコアという文字の画像
 	int hsi;   //ハイスコアという文字の画像
+	int GameTime;  //スタート時間
 
 public:
 	Scene();

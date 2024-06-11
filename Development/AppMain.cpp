@@ -55,6 +55,12 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance,
 			//ƒV[ƒ“‚Ì•`‰æˆ—
 			scene->Draw();
 
+			//
+			/*if (Scene::GameTime < 0)
+			{
+				break;
+			}*/
+
 			//— ‰æ–Ê‚Ì“à—e‚ð•\‰æ–Ê”½‰f
 			ScreenFlip();
 		}
