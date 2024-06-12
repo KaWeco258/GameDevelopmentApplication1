@@ -99,12 +99,14 @@ void Scene::Update()
 
 	//制限時間の更新
 	GameTime--;
-	//制限時間が無くなったら、ゲームオーバーに遷移する
+	//制限時間が無くなったらの処理
 	if (GameTime < 0)
 	{
-		//Change_Scene(E_GAME_OVER);
+		//秒数を0にする
 		GameTime = 0;
 	}
+
+	
 }
 
 //描画処理
@@ -125,20 +127,10 @@ void Scene::Draw() const
 	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
 	//ハイスコアという文字の画像の描画
 	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
-	//60秒たったらゲームを終了する
-	//while (GetNowCount()-StartTime<1000*60)
-	//{
-	//	for (i = 0; i <= 60; i++)
-	//	{
-	//		DrawFormatString(60.0, 588.0, GetColor(255, 0, 0), "%01d", 60 - i, TRUE);
-	//		/*GetNowCount() = GetNowCount() + 1000;*/
-	//	}
-
-	//}
-	
 	//制限時間の描画
-	DrawFormatString(100.0, 608.0, GetColor(255, 0, 0), "%d秒", GameTime/150, TRUE);
-
+	//DrawFormatString(200.0, 308.0, GetColor(255, 0, 255), "%d秒", GameTime/150, TRUE);
+	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], FALSE);
+	DrawExtendGraph(141.0, 588.0,190.0,645.0, number[GameTime / 150%10], FALSE);
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{
