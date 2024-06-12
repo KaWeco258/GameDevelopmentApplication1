@@ -14,6 +14,7 @@ private:
 	int si;    //スコアという文字の画像
 	int hsi;   //ハイスコアという文字の画像
 	int GameTime;  //スタート時間
+	//bool efface;    //消す処理(仮)
 
 public:
 	Scene();
@@ -28,6 +29,8 @@ private:
 	//当たり判定チェック処理
 	void HitCheckObject(GameObject* a, GameObject* b);
 
+	//消す処理(仮)
+	bool effaces(GameObject* a, GameObject* b);
 	//オブジェクト生成処理
 	template <class T>
 	T* CreateObject(const Vector2D& location)

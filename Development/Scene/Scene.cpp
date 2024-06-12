@@ -198,3 +198,30 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 	}
 }
 #endif // D_PIVOT_CENTER
+
+
+bool Scene::effaces(GameObject* a, GameObject* b)
+{
+	////オブジェクトリスト内のオブジェクトを更新
+	//for (GameObject* obj : objects)
+	//{
+	//	obj->Update();
+	//}
+
+	////オブジェクト同士の当たり判定チェック
+	//for (int i = 0; i < objects.size(); i++)
+	//{
+	//	for (int j = i + 1; j < objects.size(); j++)
+	//	{
+	//		//当たり判定チェック処理
+	//		HitCheckObject(objects[i], objects[j]);
+	//	}
+	//}
+
+	/*if (HitCheckObject(objects[i], objects[j])==TRUE)
+	{
+		return true;
+	}
+
+	return false;*/
+}

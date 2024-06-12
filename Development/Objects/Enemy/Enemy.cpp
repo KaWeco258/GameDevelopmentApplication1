@@ -6,8 +6,8 @@ Enemy::Enemy() : animation_count(0), direction(0.0f)
 {
 	boxenemy_animation[0] = NULL;
 	boxenemy_animation[1] = NULL;
-	wingenemy_animation[0] = NULL;
-	wingenemy_animation[1] = NULL;
+	/*wingenemy_animation[0] = NULL;
+	wingenemy_animation[1] = NULL;*/
 
 }
 
@@ -23,18 +23,18 @@ void Enemy::Initialize()
 	//画像の読み込み
 	boxenemy_animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
 	boxenemy_animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
-	wingenemy_animation[0] = LoadGraph("Resource/Images/WingEnemy/1.png");
-	wingenemy_animation[1] = LoadGraph("Resource/Images/WingEnemy/2.png");
+	/*wingenemy_animation[0] = LoadGraph("Resource/Images/WingEnemy/1.png");
+	wingenemy_animation[1] = LoadGraph("Resource/Images/WingEnemy/2.png");*/
 
 	//エラーチェック
 	if (boxenemy_animation[0] == -1 || boxenemy_animation[1] == -1)
 	{
 		throw("ハコテキの画像がありません\n");
 	}
-	if (wingenemy_animation[0] == -1 || wingenemy_animation[1] == -1)
+	/*if (wingenemy_animation[0] == -1 || wingenemy_animation[1] == -1)
 	{
 		throw("ハネテキの画像がありません\n");
-	}
+	}*/
 
 	//向きの設定
 	radian = 0.0f;
@@ -44,7 +44,7 @@ void Enemy::Initialize()
 
 	//初期画像の設定
 	boxenemy_image = boxenemy_animation[0];
-	wingenemy_image = wingenemy_animation[0];
+	/*wingenemy_image = wingenemy_animation[0];*/
 
 	//初期進行方向の設定
 	direction = Vector2D(1.0f, 0.0f);
@@ -79,7 +79,7 @@ void Enemy::Draw() const
 
 	//情報をもとにハコテキ画像を描画
 	DrawRotaGraphF(location.x, location.y, 0.8, radian, boxenemy_image, TRUE, flip_flag);
-	DrawRotaGraphF(location.x, location.y, 0.8, radian, wingenemy_image, TRUE, flip_flag);
+	/*DrawRotaGraphF(location.x, location.y, 0.8, radian, wingenemy_image, TRUE, flip_flag);*/
 
 	//親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -91,8 +91,8 @@ void Enemy::Finalize()
 	//使用した画像を解放
 	DeleteGraph(boxenemy_animation[0]);
 	DeleteGraph(boxenemy_animation[1]);
-	DeleteGraph(wingenemy_animation[0]);
-	DeleteGraph(wingenemy_animation[1]);
+	/*DeleteGraph(wingenemy_animation[0]);
+	DeleteGraph(wingenemy_animation[1]);*/
 }
 
 
@@ -145,13 +145,13 @@ void Enemy::AnimationControl()
 			boxenemy_image = boxenemy_animation[0];
 		}
 
-		if (wingenemy_image == wingenemy_animation[0])
+		/*if (wingenemy_image == wingenemy_animation[0])
 		{
 			wingenemy_image = wingenemy_animation[1];
 		}
 		else
 		{
 			wingenemy_image = wingenemy_animation[0];
-		}
+		}*/
 	}
 }

@@ -5,7 +5,6 @@
 Bomb::Bomb() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), bomb_image(0)
 {
 	bomb_animation = NULL;
-	
 }
 
 //デストラクタ
@@ -114,11 +113,7 @@ void Bomb::Movement()
 	location -= direction;
 
 
-	//地面についたら爆破する
-	/*if ()
-	{
-
-	}*/
+	
 
 }
 
