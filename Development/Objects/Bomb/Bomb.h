@@ -21,10 +21,10 @@ public:
 	Bomb();                  //コンストラクタ
 	~Bomb();                 //デストラクタ
 
-	virtual void Initialize();     //初期化処理
-	virtual void Update();         //更新処理
-	virtual void Draw() const;     //描画処理
-	virtual void Finalize();       //終了時処理
+	virtual void Initialize() override;     //初期化処理
+	virtual void Update() override;         //更新処理
+	virtual void Draw() const override;     //描画処理
+	virtual void Finalize() override;       //終了時処理
 
 	//当たり判定通知処理
 	virtual void OnHitCollision(Bomb* hit_object);

@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include "DxLib.h"
+#include "../Bomb/Bomb.h"
 
 //コンストラクタ
 Enemy::Enemy() : animation_count(0), direction(0.0f)
@@ -121,7 +122,19 @@ void Enemy::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時に行う処理
 	direction = 0.0f;
+
+	if (dynamic_cast<Bomb*>(hit_object) != nullptr)
+	{
+		//
+		Efface = TRUE;
+	}
+	else
+	{
+		//
+		Efface = FALSE;
+	}
 }
+
 
 //アニメーション制御
 void Enemy::AnimationControl()

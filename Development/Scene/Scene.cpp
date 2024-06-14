@@ -78,6 +78,28 @@ void Scene::Update()
 		}
 	}
 
+	//
+	for (int i = 0; i < objects.size(); i++)
+	{
+		if (objects[i]->EffaceObjects()==TRUE)
+		{
+			objects.erase(objects.begin() + i);
+		}
+	}
+
+	for (int i = 0; i < objects.size(); i++)
+	{
+		
+		if (dynamic_cast<Bomb*>(objects[i]) != nullptr)
+		{
+			Vector2D po;
+			po = objects[i]->GetLocation();
+			if (po.y>565.0)
+			{
+				objects.erase(objects.begin() + i);
+			}
+		}
+	}
 	//Zキーを押したら、敵を生成
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
@@ -112,10 +134,6 @@ void Scene::Update()
 //描画処理
 void Scene::Draw() const
 {
-	/*int i;
-	int StartTime;*/
-	//現在経過時間を得る
-	/*StartTime = GetNowCount();*/
 	//背景画像の描画
 	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
 	//画面の一番下に黒い四角形の図形の描画
@@ -128,7 +146,6 @@ void Scene::Draw() const
 	//ハイスコアという文字の画像の描画
 	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
 	//制限時間の描画
-	//DrawFormatString(200.0, 308.0, GetColor(255, 0, 255), "%d秒", GameTime/150, TRUE);
 	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], FALSE);
 	DrawExtendGraph(141.0, 588.0,190.0,645.0, number[GameTime / 150%10], FALSE);
 	//オブジェクトリスト内のオブジェクトを描画
@@ -200,28 +217,3 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 #endif // D_PIVOT_CENTER
 
 
-bool Scene::effaces(GameObject* a, GameObject* b)
-{
-	////オブジェクトリスト内のオブジェクトを更新
-	//for (GameObject* obj : objects)
-	//{
-	//	obj->Update();
-	//}
-
-	////オブジェクト同士の当たり判定チェック
-	//for (int i = 0; i < objects.size(); i++)
-	//{
-	//	for (int j = i + 1; j < objects.size(); j++)
-	//	{
-	//		//当たり判定チェック処理
-	//		HitCheckObject(objects[i], objects[j]);
-	//	}
-	//}
-
-	/*if (HitCheckObject(objects[i], objects[j])==TRUE)
-	{
-		return true;
-	}
-
-	return false;*/
-}

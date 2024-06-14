@@ -9,7 +9,9 @@ GameObject::GameObject() :
 	boxenemy_image(0),
 	wingenemy_image(0),
 	player_image(0),
-	sound(0)
+	sound(0),
+	Efface(FALSE)
+	
 {
 
 
@@ -61,6 +63,12 @@ void GameObject::Finalize()
 void GameObject::OnHitCollision(GameObject* hit_object)
 {
 	//“–‚½‚Á‚½Žž‚És‚¤ˆ—
+}
+
+//Á‚·ˆ—(‰¼)
+bool GameObject::EffaceObjects()
+{
+	return this->Efface;
 }
 
 //ˆÊ’uî•ñŽæ“¾ˆ—

@@ -17,7 +17,7 @@ protected:
 	//int blast_image[3];        //描画する画像(爆風)
 	int player_image;           //描画する画像(プレイヤー)
 	int sound;					//再生する音源
-
+	bool Efface;          //消す処理(仮)
 
 
 
@@ -32,6 +32,9 @@ public:
 
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object);
+
+	//消す処理(仮)
+	bool EffaceObjects();
 
 	//位置情報取得処理
 	Vector2D GetLocation() const;
