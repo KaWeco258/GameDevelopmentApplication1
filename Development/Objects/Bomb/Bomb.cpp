@@ -1,5 +1,6 @@
 #include "Bomb.h"
 #include "DxLib.h"
+#include "../Enemy/Enemy.h"
 
 //コンストラクタ
 Bomb::Bomb() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), bomb_image(0)
@@ -118,11 +119,22 @@ void Bomb::Movement()
 }
 
 //当たり判定通知処理
-void Bomb::OnHitCollision(Bomb* hit_object)
+void Bomb::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時に行う処理
-	location = 0.0f;
-	direction.y = 0.0f;
+	
+	//爆弾に当たって無かったら
+	if (dynamic_cast<Enemy*>(hit_object) != nullptr)
+	{
+		//敵を描画し続ける
+		Efface = TRUE;
+	}
+	//爆弾に当たったら
+	else
+	{
+		//敵を消す処理
+		Efface = FALSE;
+	}
 }
 
 ////アニメーション制御

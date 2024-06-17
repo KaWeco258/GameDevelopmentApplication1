@@ -27,13 +27,14 @@ public:
 	virtual void Finalize() override;       //終了時処理
 
 	//当たり判定通知処理
-	virtual void OnHitCollision(Bomb* hit_object);
+	virtual void OnHitCollision(GameObject* hit_object) override;
 
 
 
 private:
 	//移動処理
 	void Movement();
+	
 	//アニメーション制御
 	//void AnimationControl();
 

@@ -92,9 +92,9 @@ void Scene::Update()
 		
 		if (dynamic_cast<Bomb*>(objects[i]) != nullptr)
 		{
-			Vector2D po;
-			po = objects[i]->GetLocation();
-			if (po.y>565.0)
+			Vector2D bp;
+			bp = objects[i]->GetLocation();   //”š’e‚ÌŒ»ÝˆÊ’u
+			if (bp.y>552.0)
 			{
 				objects.erase(objects.begin() + i);
 			}

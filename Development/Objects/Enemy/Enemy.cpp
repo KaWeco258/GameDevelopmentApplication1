@@ -121,16 +121,18 @@ void Enemy::Movement()
 void Enemy::OnHitCollision(GameObject* hit_object)
 {
 	//“–‚½‚Á‚½‚És‚¤ˆ—
-	direction = 0.0f;
+	//direction = 0.0f;
 
+	//”š’e‚É“–‚½‚Á‚Ä–³‚©‚Á‚½‚ç
 	if (dynamic_cast<Bomb*>(hit_object) != nullptr)
 	{
-		//
+		//“G‚ğ•`‰æ‚µ‘±‚¯‚é
 		Efface = TRUE;
 	}
+	//”š’e‚É“–‚½‚Á‚½‚ç
 	else
 	{
-		//
+		//“G‚ğÁ‚·ˆ—
 		Efface = FALSE;
 	}
 }
