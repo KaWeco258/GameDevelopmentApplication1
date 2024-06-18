@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "../Objects/Enemy/Enemy.h"
+#include "../Objects/Enemy/BoxEnemy.h"
 #include "../Objects/Player/Player.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
@@ -20,6 +20,7 @@ Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0)
 	number[7] = NULL;
 	number[8] = NULL;
 	number[9] = NULL;
+	being = FALSE;
 }
 
 //デストラクタ
@@ -75,18 +76,21 @@ void Scene::Update()
 		{
 			//当たり判定チェック処理
 			HitCheckObject(objects[i], objects[j]);
+			
 		}
 	}
 
-	//
+	//オブジェクト同士が当たったら、それぞれのオブジェクトを消す
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->EffaceObjects()==TRUE)
 		{
 			objects.erase(objects.begin() + i);
+			being = FALSE;
 		}
 	}
 
+	//爆弾が画面下に到達したら消す
 	for (int i = 0; i < objects.size(); i++)
 	{
 		
@@ -97,28 +101,34 @@ void Scene::Update()
 			if (bp.y>552.0)
 			{
 				objects.erase(objects.begin() + i);
+				being = FALSE;
 			}
 		}
 	}
 	//Zキーを押したら、敵を生成
 	if (InputControl::GetKeyDown(KEY_INPUT_Z))
 	{
-		CreateObject<Enemy>(Vector2D(100.0f, 520.0f));
+		CreateObject<BoxEnemy>(Vector2D(100.0f, 520.0f));
 	}
 
-	//スペースキーを押したら、爆弾を生成
-	if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
+	if (being==FALSE)
 	{
-		for (int i = 0; i < objects.size(); i++)
+		//スペースキーを押したら、爆弾を生成
+		if (InputControl::GetKeyDown(KEY_INPUT_SPACE))
 		{
-			if (dynamic_cast<Player*>(objects[i]) != nullptr)
+			for (int i = 0; i < objects.size(); i++)
 			{
-				CreateObject<Bomb>(objects[i]->GetLocation());
+				if (dynamic_cast<Player*>(objects[i]) != nullptr)
+				{
+					CreateObject<Bomb>(objects[i]->GetLocation());
+					being = TRUE;
+				}
 			}
-		}
 		
+		
+		
+		}
 	}
-
 	//制限時間の更新
 	GameTime--;
 	//制限時間が無くなったらの処理
@@ -192,7 +202,9 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 		//当たったことをオブジェクトに通知
 		a->OnHitCollision(b);
 		b->OnHitCollision(a);
+		
 	}
+	
 }
 #else
 
@@ -212,6 +224,7 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 		//オブジェクトに対してHIT判定を通知
 		a->OnHitCollision(b);
 		b->OnHitCollision(a);
+		//being = FALSE;
 	}
 }
 #endif // D_PIVOT_CENTER

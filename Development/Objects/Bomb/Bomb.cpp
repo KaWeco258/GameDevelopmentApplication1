@@ -1,6 +1,6 @@
 #include "Bomb.h"
 #include "DxLib.h"
-#include "../Enemy/Enemy.h"
+#include "../Enemy/BoxEnemy.h"
 
 //コンストラクタ
 Bomb::Bomb() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), bomb_image(0)
@@ -124,7 +124,7 @@ void Bomb::OnHitCollision(GameObject* hit_object)
 	//当たった時に行う処理
 	
 	//爆弾に当たって無かったら
-	if (dynamic_cast<Enemy*>(hit_object) != nullptr)
+	if (dynamic_cast<BoxEnemy*>(hit_object) != nullptr)
 	{
 		//敵を描画し続ける
 		Efface = TRUE;
@@ -134,6 +134,7 @@ void Bomb::OnHitCollision(GameObject* hit_object)
 	{
 		//敵を消す処理
 		Efface = FALSE;
+		
 	}
 }
 

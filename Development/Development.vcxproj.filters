@@ -33,7 +33,7 @@
     <ClCompile Include="Utility\Vector2D.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Objects\Enemy\Enemy.cpp">
+    <ClCompile Include="Objects\Enemy\BoxEnemy.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Objects\Bomb\Bomb.cpp">
@@ -56,7 +56,7 @@
     <ClInclude Include="Utility\Vector2D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Objects\Enemy\Enemy.h">
+    <ClInclude Include="Objects\Enemy\BoxEnemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Objects\Bomb\Bomb.h">

@@ -14,6 +14,7 @@ private:
 	int si;    //スコアという文字の画像
 	int hsi;   //ハイスコアという文字の画像
 	int GameTime;  //スタート時間
+	bool being;    //爆弾を出すか出さないか
 
 public:
 	Scene();

@@ -1,9 +1,9 @@
-#include "Enemy.h"
+#include "BoxEnemy.h"
 #include "DxLib.h"
 #include "../Bomb/Bomb.h"
 
 //コンストラクタ
-Enemy::Enemy() : animation_count(0), direction(0.0f)
+BoxEnemy::BoxEnemy() : animation_count(0), direction(0.0f)
 {
 	boxenemy_animation[0] = NULL;
 	boxenemy_animation[1] = NULL;
@@ -13,13 +13,13 @@ Enemy::Enemy() : animation_count(0), direction(0.0f)
 }
 
 //デストラクタ
-Enemy::~Enemy()
+BoxEnemy::~BoxEnemy()
 {
 
 }
 
 //初期化処理
-void Enemy::Initialize()
+void BoxEnemy::Initialize()
 {
 	//画像の読み込み
 	boxenemy_animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
@@ -45,7 +45,7 @@ void Enemy::Initialize()
 
 	//初期画像の設定
 	boxenemy_image = boxenemy_animation[0];
-	/*wingenemy_image = wingenemy_animation[0];*/
+	//wingenemy_image = wingenemy_animation[0];
 
 	//初期進行方向の設定
 	direction = Vector2D(1.0f, 0.0f);
@@ -54,7 +54,7 @@ void Enemy::Initialize()
 }
 
 //更新処理
-void Enemy::Update()
+void BoxEnemy::Update()
 {
 	//移動処理
 	Movement();
@@ -63,7 +63,7 @@ void Enemy::Update()
 }
 
 //描画処理
-void Enemy::Draw() const
+void BoxEnemy::Draw() const
 {
 	//画像フラグ
 	int flip_flag = FALSE;
@@ -80,14 +80,14 @@ void Enemy::Draw() const
 
 	//情報をもとにハコテキ画像を描画
 	DrawRotaGraphF(location.x, location.y, 0.8, radian, boxenemy_image, TRUE, flip_flag);
-	/*DrawRotaGraphF(location.x, location.y, 0.8, radian, wingenemy_image, TRUE, flip_flag);*/
+	DrawRotaGraphF(location.x, location.y, 0.8, radian, wingenemy_image, TRUE, flip_flag);
 
 	//親クラスの描画処理を呼び出す
 	__super::Draw();
 }
 
 //終了時処理
-void Enemy::Finalize()
+void BoxEnemy::Finalize()
 {
 	//使用した画像を解放
 	DeleteGraph(boxenemy_animation[0]);
@@ -98,7 +98,7 @@ void Enemy::Finalize()
 
 
 //移動処理
-void Enemy::Movement()
+void BoxEnemy::Movement()
 {
 	//画面端に到達したら、進行方向を反転させる
 	if (((location.x + direction.x) < box_size.x) ||
@@ -118,7 +118,7 @@ void Enemy::Movement()
 }
  
 //当たり判定通知処理
-void Enemy::OnHitCollision(GameObject* hit_object)
+void BoxEnemy::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時に行う処理
 	//direction = 0.0f;
@@ -139,7 +139,7 @@ void Enemy::OnHitCollision(GameObject* hit_object)
 
 
 //アニメーション制御
-void Enemy::AnimationControl()
+void BoxEnemy::AnimationControl()
 {
 	//アニメーションカウントを計算する
 	animation_count++;

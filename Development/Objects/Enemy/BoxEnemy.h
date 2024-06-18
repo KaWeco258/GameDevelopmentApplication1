@@ -4,18 +4,18 @@
 
 
 //ゲームオブジェクト基底クラス
-class Enemy : public GameObject
+class BoxEnemy : public GameObject
 {
 private:
 	int boxenemy_animation[2];      //アニメーション画像
-	int wingenemy_animation[2];      //アニメーション画像
+	//int wingenemy_animation[2];      //アニメーション画像
 	int animation_count;   //アニメーション時間
 	Vector2D direction;     //進行方向
 
 
 public:
-	Enemy();                  //コンストラクタ
-	~Enemy();                 //デストラクタ
+	BoxEnemy();                  //コンストラクタ
+	~BoxEnemy();                 //デストラクタ
 
 	virtual void Initialize() override;     //初期化処理
 	virtual void Update() override;         //更新処理
