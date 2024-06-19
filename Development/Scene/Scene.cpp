@@ -8,7 +8,7 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0)
 {
 	number[0] = NULL;
 	number[1] = NULL;
@@ -63,6 +63,7 @@ void Scene::Initialize()
 //更新処理
 void Scene::Update()
 {
+	
 	//オブジェクトリスト内のオブジェクトを更新
 	for (GameObject* obj : objects)
 	{
@@ -80,7 +81,7 @@ void Scene::Update()
 		}
 	}
 
-	//オブジェクト同士が当たったら、それぞれのオブジェクトを消す
+	//オブジェクト同士が当たったら、それぞれオブジェクトを消す
 	for (int i = 0; i < objects.size(); i++)
 	{
 		if (objects[i]->EffaceObjects()==TRUE)
@@ -105,12 +106,9 @@ void Scene::Update()
 			}
 		}
 	}
-	//Zキーを押したら、敵を生成
-	if (InputControl::GetKeyDown(KEY_INPUT_Z))
-	{
-		CreateObject<BoxEnemy>(Vector2D(100.0f, 520.0f));
-	}
+	
 
+	//画面上に爆弾が無ければ
 	if (being==FALSE)
 	{
 		//スペースキーを押したら、爆弾を生成
@@ -125,10 +123,57 @@ void Scene::Update()
 				}
 			}
 		
-		
-		
 		}
 	}
+
+	//Zキーを押したら、敵を生成
+	/*if (InputControl::GetKeyDown(KEY_INPUT_Z))
+	{
+		
+	}*/
+	/*while (GameTime>0)
+	{*/
+		if (GameTime % 10 == 0)
+		{
+			// int GetRand(10);
+			int r = rand() % 100+1;
+			
+			switch (r)
+			{
+				case 1:
+					/*for (int i = 0; i < 1; i++)
+					{*/
+						CreateObject<BoxEnemy>(Vector2D(100.0f, 520.0f));
+					/*}*/
+					break;
+
+				case 2:
+					/*for (int i = 0; i < 1; i++)
+					{*/
+					CreateObject<BoxEnemy>(Vector2D(200.0f, 520.0f));
+					/*}*/
+					break;
+
+				case 3:
+					/*for (int i = 0; i < 1; i++)
+					{*/
+					CreateObject<BoxEnemy>(Vector2D(300.0f, 520.0f));
+					/*}*/
+					break;
+
+				case 4:
+					/*for (int i = 0; i < 1; i++)
+					{*/
+					CreateObject<BoxEnemy>(Vector2D(400.0f, 520.0f));
+					/*}*/
+					break;
+
+				default:
+				break;
+			}
+		}
+	/*}*/
+	
 	//制限時間の更新
 	GameTime--;
 	//制限時間が無くなったらの処理
@@ -150,7 +195,7 @@ void Scene::Draw() const
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
 	//タイマーの画像の描画
 	DrawGraph(30.0, 588.0, ti, FALSE);
-	
+	DrawFormatString(400.0, 300, GetColor(0, 0, 0), "%d", r, TRUE);
 	//スコアという文字の画像の描画
 	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
 	//ハイスコアという文字の画像の描画

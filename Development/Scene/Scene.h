@@ -15,11 +15,12 @@ private:
 	int hsi;   //ハイスコアという文字の画像
 	int GameTime;  //スタート時間
 	bool being;    //爆弾を出すか出さないか
+	
 
 public:
 	Scene();
 	~Scene();
-
+	int r;     //敵をランダムに出現させるための変数
 	void Initialize();
 	void Update();
 	void Draw() const;
