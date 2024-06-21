@@ -2,6 +2,7 @@
 #define TIMELIMIT (600*15)  //制限時間（1分）
 
 #include  "../Objects/GameObject.h"
+#include "DxLib.h"
 #include <vector>
 
 class Scene
@@ -15,7 +16,8 @@ private:
 	int hsi;   //ハイスコアという文字の画像
 	int GameTime;  //スタート時間
 	bool being;    //爆弾を出すか出さないか
-	
+	bool e_flg;
+
 
 public:
 	Scene();

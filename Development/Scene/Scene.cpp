@@ -8,7 +8,7 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE)
 {
 	number[0] = NULL;
 	number[1] = NULL;
@@ -88,6 +88,7 @@ void Scene::Update()
 		{
 			objects.erase(objects.begin() + i);
 			being = FALSE;
+			e_flg = FALSE;
 		}
 	}
 
@@ -103,6 +104,22 @@ void Scene::Update()
 			{
 				objects.erase(objects.begin() + i);
 				being = FALSE;
+			}
+		}
+	}
+
+	//敵が画面左右に到達したら消す
+	for (int i = 0; i < objects.size(); i++)
+	{
+
+		if (dynamic_cast<BoxEnemy*>(objects[i]) != nullptr)
+		{
+			Vector2D bep;
+			bep = objects[i]->GetLocation();   //敵の現在位置
+			if (bep.x > 900.0||bep.x < 50.0)
+			{
+				objects.erase(objects.begin() + i);
+				e_flg = FALSE;
 			}
 		}
 	}
@@ -133,49 +150,62 @@ void Scene::Update()
 	}*/
 	/*while (GameTime>0)
 	{*/
-		if (GameTime % 10 == 0)
-		{
-			// int GetRand(10);
-			int r = rand() % 100+1;
+		
+
 			
-			switch (r)
+		
+/*}*/
+		//制限時間の更新
+	GameTime--;
+	
+	/*if (GameTime == 54 || GameTime == 48 || GameTime == 42 || GameTime == 36 || GameTime == 30 || GameTime == 24 || GameTime == 18 || GameTime == 12 || GameTime == 6)
+	{*/
+		int GetRand(10);
+		int r = GetRand % 10 + 1;
+		//int SRand(r);
+		if (e_flg == FALSE)
+		{
+			if (GameTime / 150 % 6 == 0)
 			{
-				case 1:
-					/*for (int i = 0; i < 1; i++)
-					{*/
-						CreateObject<BoxEnemy>(Vector2D(100.0f, 520.0f));
-					/*}*/
-					break;
-
-				case 2:
-					/*for (int i = 0; i < 1; i++)
-					{*/
-					CreateObject<BoxEnemy>(Vector2D(200.0f, 520.0f));
-					/*}*/
-					break;
-
-				case 3:
-					/*for (int i = 0; i < 1; i++)
-					{*/
-					CreateObject<BoxEnemy>(Vector2D(300.0f, 520.0f));
-					/*}*/
-					break;
-
-				case 4:
-					/*for (int i = 0; i < 1; i++)
-					{*/
-					CreateObject<BoxEnemy>(Vector2D(400.0f, 520.0f));
-					/*}*/
-					break;
-
-				default:
-				break;
+				CreateObject<BoxEnemy>(Vector2D(100.0f, 520.0f));
+				e_flg = TRUE;
 			}
 		}
+			//switch (GetRand % 10 + 1)
+			//{
+			//case 1:
+			//	
+			//	break;
+
+			//case 2:
+			//	if (GameTime / 150 % 6 == 0)
+			//	{
+			//		CreateObject<BoxEnemy>(Vector2D(200.0f, 520.0f));
+			//	}
+			//	break;
+
+			//case 3:
+			//	if (GameTime / 150 % 6 == 0)
+			//	{
+			//		CreateObject<BoxEnemy>(Vector2D(300.0f, 520.0f));
+			//	}
+			//	break;
+
+			//case 4:
+			//	if (GameTime / 150 % 6 == 0)
+			//	{
+			//		CreateObject<BoxEnemy>(Vector2D(400.0f, 520.0f));
+			//	}
+			//	break;
+
+			//default:
+			//	//CreateObject<BoxEnemy>(Vector2D(100.0f, 320.0f));
+			//	break;
+
+			//
+			//}
+		
 	/*}*/
-	
-	//制限時間の更新
-	GameTime--;
 	//制限時間が無くなったらの処理
 	if (GameTime < 0)
 	{
@@ -195,7 +225,7 @@ void Scene::Draw() const
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
 	//タイマーの画像の描画
 	DrawGraph(30.0, 588.0, ti, FALSE);
-	DrawFormatString(400.0, 300, GetColor(0, 0, 0), "%d", r, TRUE);
+	//DrawFormatString(400.0, 300, GetColor(0, 0, 0), "%d", r, TRUE);
 	//スコアという文字の画像の描画
 	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
 	//ハイスコアという文字の画像の描画
@@ -228,6 +258,19 @@ void Scene::Finalize()
 
 	//動的配列の解放
 	objects.clear();
+
+	//画像の解放
+	DeleteGraph(number[0]);
+	DeleteGraph(number[1]);
+	DeleteGraph(number[2]);
+	DeleteGraph(number[3]);
+	DeleteGraph(number[4]);
+	DeleteGraph(number[5]);
+	DeleteGraph(number[6]);
+	DeleteGraph(number[7]);
+	DeleteGraph(number[8]);
+	DeleteGraph(number[9]);
+	
 }
 
 #ifdef D_PIVOT_CENTER

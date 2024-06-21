@@ -101,7 +101,7 @@ void BoxEnemy::Finalize()
 void BoxEnemy::Movement()
 {
 	//画面端に到達したら、進行方向を反転させる
-	if (((location.x + direction.x) < box_size.x) ||
+	/*if (((location.x + direction.x) < box_size.x) ||
 		(940.0f - box_size.x) < (location.x + direction.x))
 	{
 		direction.x *= -1.0f;
@@ -111,7 +111,7 @@ void BoxEnemy::Movement()
 		(580.0f - box_size.y) < (location.y + direction.y))
 	{
 		direction.y *= -1.0f;
-	}
+	}*/
    
 	//進行方向に向かって、位置座標を変更する
 	location += direction;
