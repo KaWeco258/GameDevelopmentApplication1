@@ -88,3 +88,8 @@ Vector2D GameObject::GetBoxSize() const
 	return box_size;
 }
 
+void GameObject::AnimationControl()
+{
+
+}
+

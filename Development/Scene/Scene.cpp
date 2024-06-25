@@ -7,6 +7,7 @@
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 #include "../Objects/Bomb/Bomb.h"
+#include "../Objects/BombBlast/BombBlast.h"
 
 #define D_PIVOT_CENTER
 
@@ -92,6 +93,7 @@ void Scene::Update()
 			objects.erase(objects.begin() + i);
 			being = FALSE;
 			e_flg = FALSE;
+			//CreateObject<BombBlast>(objects[i]->AnimationControl());
 		}
 	}
 
@@ -107,6 +109,7 @@ void Scene::Update()
 			{
 				objects.erase(objects.begin() + i);
 				being = FALSE;
+				CreateObject<BombBlast>(bp);
 			}
 		}
 	}
@@ -158,7 +161,7 @@ void Scene::Update()
 			
 		
 /*}*/
-		//制限時間の更新
+	//制限時間の更新
 	GameTime--;
 	
 	/*if (GameTime == 54 || GameTime == 48 || GameTime == 42 || GameTime == 36 || GameTime == 30 || GameTime == 24 || GameTime == 18 || GameTime == 12 || GameTime == 6)

@@ -4,24 +4,24 @@
 #include "../GameObject.h"
 
 //ゲームオブジェクト基底クラス
-class Bomb : public GameObject
+class BombBlast : public GameObject
 
 {
 private:
 	int animation_count;      //アニメーション時間
 	Vector2D direction;       //進行方向
-	int bomb_animation;       //描画する画像
+	//int bomb_animation;       //描画する画像
 	int blast_animation[3];       //描画する画像
 	double radian;            //向き
 
 	Vector2D box_size;        //大きさ
-	int bomb_image;           //描画する画像
+	//int bomb_image;           //描画する画像
 	int blast_image;           //描画する画像
 
 
 public:
-	Bomb();                  //コンストラクタ
-	~Bomb();                 //デストラクタ
+	BombBlast();                  //コンストラクタ
+	~BombBlast();                 //デストラクタ
 
 	virtual void Initialize() override;     //初期化処理
 	virtual void Update() override;         //更新処理
@@ -38,7 +38,7 @@ private:
 	void Movement();
 	
 	//アニメーション制御
-	//void AnimationControl();
+	void AnimationControl();
 
 	
 };

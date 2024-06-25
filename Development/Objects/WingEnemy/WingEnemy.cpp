@@ -74,8 +74,7 @@ void WingEnemy::Draw() const
 		flip_flag = TRUE;
 	}
 
-	//情報をもとにハコテキ画像を描画
-	DrawRotaGraphF(location.x, location.y, 0.8, radian, boxenemy_image, TRUE, flip_flag);
+	//情報をもとにハネテキ画像を描画
 	DrawRotaGraphF(location.x, location.y, 0.8, radian, wingenemy_image, TRUE, flip_flag);
 
 	//親クラスの描画処理を呼び出す

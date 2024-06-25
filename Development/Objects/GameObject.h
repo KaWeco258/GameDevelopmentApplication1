@@ -35,7 +35,7 @@ public:
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object);
 
-	//消す処理(仮)
+	//消す処理
 	bool EffaceObjects();
 
 	//位置情報取得処理
@@ -45,4 +45,7 @@ public:
 
 	//当たり判定の大きさを取得する
 	Vector2D GetBoxSize() const;
+	
+	//アニメーション制御
+	void AnimationControl();
 };
