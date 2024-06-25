@@ -1,5 +1,8 @@
 #include "Scene.h"
-#include "../Objects/Enemy/BoxEnemy.h"
+#include "../Objects/BoxEnemy/BoxEnemy.h"
+#include "../Objects/GoldEnemy/GoldEnemy.h"
+#include "../Objects/WingEnemy/WingEnemy.h"
+#include "../Objects/Harpy/Harpy.h"
 #include "../Objects/Player/Player.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
@@ -167,7 +170,7 @@ void Scene::Update()
 		{
 			if (GameTime / 150 % 6 == 0)
 			{
-				CreateObject<BoxEnemy>(Vector2D(100.0f, 520.0f));
+				CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
 				e_flg = TRUE;
 			}
 		}
@@ -231,8 +234,8 @@ void Scene::Draw() const
 	//ハイスコアという文字の画像の描画
 	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
 	//制限時間の描画
-	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], FALSE);
-	DrawExtendGraph(141.0, 588.0,190.0,645.0, number[GameTime / 150%10], FALSE);
+	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], FALSE);     //10の位
+	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], FALSE);    //1の位
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{

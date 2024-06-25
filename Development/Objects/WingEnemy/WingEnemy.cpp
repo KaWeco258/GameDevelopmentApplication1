@@ -1,36 +1,33 @@
-#include "BoxEnemy.h"
+#include "WingEnemy.h"
 #include "DxLib.h"
 #include "../Bomb/Bomb.h"
 
 //コンストラクタ
-BoxEnemy::BoxEnemy() : animation_count(0), direction(0.0f)
+WingEnemy::WingEnemy() : animation_count(0), direction(0.0f)
 {
-	boxenemy_animation[0] = NULL;
-	boxenemy_animation[1] = NULL;
-	/*wingenemy_animation[0] = NULL;
-	wingenemy_animation[1] = NULL;*/
+	wingenemy_animation[0] = NULL;
+	wingenemy_animation[1] = NULL;
+
 
 }
 
 //デストラクタ
-BoxEnemy::~BoxEnemy()
+WingEnemy::~WingEnemy()
 {
 
 }
 
 //初期化処理
-void BoxEnemy::Initialize()
+void WingEnemy::Initialize()
 {
 	//画像の読み込み
-	boxenemy_animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
-	boxenemy_animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
-	/*wingenemy_animation[0] = LoadGraph("Resource/Images/WingEnemy/1.png");
-	wingenemy_animation[1] = LoadGraph("Resource/Images/WingEnemy/2.png");*/
+	wingenemy_animation[0] = LoadGraph("Resource/Images/WingEnemy/1.png");
+	wingenemy_animation[1] = LoadGraph("Resource/Images/WingEnemy/2.png");
 
 	//エラーチェック
-	if (boxenemy_animation[0] == -1 || boxenemy_animation[1] == -1)
+	if (wingenemy_animation[0] == -1 || wingenemy_animation[1] == -1)
 	{
-		throw("ハコテキの画像がありません\n");
+		throw("ハネテキの画像がありません\n");
 	}
 	/*if (wingenemy_animation[0] == -1 || wingenemy_animation[1] == -1)
 	{
@@ -44,8 +41,7 @@ void BoxEnemy::Initialize()
 	box_size = 64.0f;
 
 	//初期画像の設定
-	boxenemy_image = boxenemy_animation[0];
-	//wingenemy_image = wingenemy_animation[0];
+	wingenemy_image = wingenemy_animation[0];
 
 	//初期進行方向の設定
 	direction = Vector2D(1.0f, 0.0f);
@@ -54,7 +50,7 @@ void BoxEnemy::Initialize()
 }
 
 //更新処理
-void BoxEnemy::Update()
+void WingEnemy::Update()
 {
 	//移動処理
 	Movement();
@@ -63,7 +59,7 @@ void BoxEnemy::Update()
 }
 
 //描画処理
-void BoxEnemy::Draw() const
+void WingEnemy::Draw() const
 {
 	//画像フラグ
 	int flip_flag = FALSE;
@@ -87,18 +83,16 @@ void BoxEnemy::Draw() const
 }
 
 //終了時処理
-void BoxEnemy::Finalize()
+void WingEnemy::Finalize()
 {
 	//使用した画像を解放
-	DeleteGraph(boxenemy_animation[0]);
-	DeleteGraph(boxenemy_animation[1]);
-	/*DeleteGraph(wingenemy_animation[0]);
-	DeleteGraph(wingenemy_animation[1]);*/
+	DeleteGraph(wingenemy_animation[0]);
+	DeleteGraph(wingenemy_animation[1]);
 }
 
 
 //移動処理
-void BoxEnemy::Movement()
+void WingEnemy::Movement()
 {
 	//画面端に到達したら、進行方向を反転させる
 	/*if (((location.x + direction.x) < box_size.x) ||
@@ -112,13 +106,13 @@ void BoxEnemy::Movement()
 	{
 		direction.y *= -1.0f;
 	}*/
-   
+
 	//進行方向に向かって、位置座標を変更する
 	location += direction;
 }
- 
+
 //当たり判定通知処理
-void BoxEnemy::OnHitCollision(GameObject* hit_object)
+void WingEnemy::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時に行う処理
 	//direction = 0.0f;
@@ -139,7 +133,7 @@ void BoxEnemy::OnHitCollision(GameObject* hit_object)
 
 
 //アニメーション制御
-void BoxEnemy::AnimationControl()
+void WingEnemy::AnimationControl()
 {
 	//アニメーションカウントを計算する
 	animation_count++;
@@ -151,22 +145,13 @@ void BoxEnemy::AnimationControl()
 		animation_count = 0;
 
 		//画像の切り替え
-		if (boxenemy_image == boxenemy_animation[0])
-		{
-			boxenemy_image = boxenemy_animation[1];
-		}
-		else
-		{
-			boxenemy_image = boxenemy_animation[0];
-		}
-
-		/*if (wingenemy_image == wingenemy_animation[0])
+		if (wingenemy_image == wingenemy_animation[0])
 		{
 			wingenemy_image = wingenemy_animation[1];
 		}
 		else
 		{
 			wingenemy_image = wingenemy_animation[0];
-		}*/
+		}
 	}
 }

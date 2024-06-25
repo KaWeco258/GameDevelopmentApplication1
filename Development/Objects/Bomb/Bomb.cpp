@@ -1,6 +1,6 @@
 #include "Bomb.h"
 #include "DxLib.h"
-#include "../Enemy/BoxEnemy.h"
+#include "../BoxEnemy/BoxEnemy.h"
 
 //コンストラクタ
 Bomb::Bomb() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), bomb_image(0)
