@@ -6,7 +6,6 @@
 //コンストラクタ
 BombBlast::BombBlast() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), blast_image(0)
 {
-	//bomb_animation = NULL;
 	blast_animation[0] = NULL;
 	blast_animation[1] = NULL;
 	blast_animation[2] = NULL;
@@ -40,7 +39,7 @@ void BombBlast::Initialize()
 	}
 
 	//向きの設定
-	radian = -1.6f;
+	radian = 0.0f;
 
 	//当たり判定の大きさを設定
 	box_size = 64.0f;
@@ -86,7 +85,7 @@ void BombBlast::Draw() const
 	DrawRotaGraphF(location.x, location.y, 0.8, radian, blast_image, TRUE, flip_flag);
 
 	//親クラスの描画処理を呼び出す
-	__super::Draw();
+	//__super::Draw();
 
 	//デバッグ用
 //#if _DEBUG
@@ -113,24 +112,25 @@ void BombBlast::Finalize()
 
 
 //移動処理
-void BombBlast::Movement()
-{
-	
-	//一番下まで爆弾を落とす
-	if (((location.y + direction.y) < box_size.y) ||
-		(580.0f - box_size.y) < (location.y + direction.y))
-	{
-		direction.x = 0.0f;
-		direction.y *= 1.1f;
-	}
-
-	//現在の位置座標に速さを加算する
-	location -= direction;
-
-
-	
-
-}
+//void BombBlast::Movement()
+//{
+//	
+//	//一番下まで爆弾を落とす
+//	if (((location.y + direction.y) < box_size.y) ||
+//		(580.0f - box_size.y) < (location.y + direction.y))
+//	{
+//		direction.x = 0.0f;
+//		direction.y *= 1.1f;
+//	}
+//
+//	//現在の位置座標に速さを加算する
+//	location -= direction;
+//
+//
+//	
+//
+//}
+//
 
 //当たり判定通知処理
 void BombBlast::OnHitCollision(GameObject* hit_object)
@@ -138,20 +138,20 @@ void BombBlast::OnHitCollision(GameObject* hit_object)
 	//当たった時に行う処理
 	
 	//爆弾に当たって無かったら
-	if (dynamic_cast<Bomb*>(hit_object) != nullptr)
-	{
-		//敵を描画し続ける
-		Efface = TRUE;
-	}
-	//爆弾に当たったら
-	else
-	{
-		//敵を消す処理
-		Efface = FALSE;
-		//アニメーション制御
-		AnimationControl();
-	}
-	
+	//if (dynamic_cast<Bomb*>(hit_object) != nullptr)
+	//{
+	//	//敵を描画し続ける
+	//	Efface = TRUE;
+	//}
+	////爆弾に当たったら
+	//else
+	//{
+	//	//敵を消す処理
+	//	Efface = FALSE;
+	//	//アニメーション制御
+	//	
+	//}
+	//AnimationControl();
 }
 
 //アニメーション制御
@@ -168,8 +168,8 @@ void BombBlast::AnimationControl()
 		//カウントをリセット
 		animation_count = 0;
 
-		if(Efface==FALSE)
-		{
+		/*if(Efface==FALSE)
+		{*/
 			//NULLだったのをアニメーションに変換させる
 		//	blast_image = blast_animation[0];
 			
@@ -187,6 +187,6 @@ void BombBlast::AnimationControl()
 				blast_image = NULL;
 			}
 			
-		}
+		/*}*/
 	}
 }

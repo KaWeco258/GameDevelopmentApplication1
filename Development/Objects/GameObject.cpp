@@ -71,6 +71,12 @@ bool GameObject::EffaceObjects()
 	return this->Efface;
 }
 
+//オブジェクトのタイプ取得
+int GameObject::GetObjectType()
+{
+	return this->type;
+}
+
 //位置情報取得処理
 Vector2D GameObject::GetLocation() const
 {

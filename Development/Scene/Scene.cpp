@@ -88,12 +88,24 @@ void Scene::Update()
 	//オブジェクト同士が当たったら、それぞれオブジェクトを消す
 	for (int i = 0; i < objects.size(); i++)
 	{
+		
+
 		if (objects[i]->EffaceObjects()==TRUE)
 		{
-			objects.erase(objects.begin() + i);
+			
 			being = FALSE;
 			e_flg = FALSE;
-			//CreateObject<BombBlast>(objects[i]->AnimationControl());
+
+			if (objects[i]->GetObjectType() == BOMB)
+			{
+				Vector2D bp;
+				bp = objects[i]->GetLocation();   //爆弾の現在位置
+
+				CreateObject<BombBlast>(bp);
+			}
+
+			objects.erase(objects.begin() + i);
+			//continue;
 		}
 	}
 
@@ -105,7 +117,7 @@ void Scene::Update()
 		{
 			Vector2D bp;
 			bp = objects[i]->GetLocation();   //爆弾の現在位置
-			if (bp.y>552.0)
+			if (bp.y>532.0)
 			{
 				objects.erase(objects.begin() + i);
 				being = FALSE;

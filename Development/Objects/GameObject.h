@@ -4,6 +4,11 @@
 
 #define D_PIVOT_CENTER  //座標の頂点を画像の中心にする
 
+#define PLAYER	(0)
+#define ENEMY	(1)
+#define BOMB	(2)
+#define	EFFECT	(3)
+
 
 //ゲームオブジェクト基底クラス
 class GameObject
@@ -20,6 +25,7 @@ protected:
 	int player_image;           //描画する画像(プレイヤー)
 	int sound;					//再生する音源
 	bool Efface;          //消す処理(仮)
+	int type;				//オブジェクトのタイプ
 
 
 
@@ -37,6 +43,9 @@ public:
 
 	//消す処理
 	bool EffaceObjects();
+
+	//オブジェクトのタイプ取得
+	int GetObjectType();
 
 	//位置情報取得処理
 	Vector2D GetLocation() const;

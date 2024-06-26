@@ -7,9 +7,9 @@
 Bomb::Bomb() : animation_count(0), direction(0.0f),box_size(0.0),radian(0.0), bomb_image(0),blast_image(0)
 {
 	bomb_animation = NULL;
-	blast_animation[0] = NULL;
+	/*blast_animation[0] = NULL;
 	blast_animation[1] = NULL;
-	blast_animation[2] = NULL;
+	blast_animation[2] = NULL;*/
 }
 
 //デストラクタ
@@ -23,9 +23,9 @@ void Bomb::Initialize()
 {
 	//画像の読み込み
 	bomb_animation = LoadGraph("Resource/Images/Bomb/Bomb.png");
-	blast_animation[0] = LoadGraph("Resource/Images/Blast/1.png");
+	/*blast_animation[0] = LoadGraph("Resource/Images/Blast/1.png");
 	blast_animation[1] = LoadGraph("Resource/Images/Blast/2.png");
-	blast_animation[2] = LoadGraph("Resource/Images/Blast/3.png");
+	blast_animation[2] = LoadGraph("Resource/Images/Blast/3.png");*/
 	
 
 	//エラーチェック
@@ -34,10 +34,10 @@ void Bomb::Initialize()
 		throw("爆弾の画像がありません\n");
 	}
 
-	if (blast_animation[0] == -1 || blast_animation[1] == -1 || blast_animation[2] == -1)
+	/*if (blast_animation[0] == -1 || blast_animation[1] == -1 || blast_animation[2] == -1)
 	{
 		throw("爆風の画像がありません\n");
-	}
+	}*/
 
 	//向きの設定
 	radian = -1.6f;
@@ -47,13 +47,14 @@ void Bomb::Initialize()
 
 	//初期画像の設定
 	bomb_image = bomb_animation;
-	blast_image = blast_animation[0];
+	//blast_image = blast_animation[0];
 	
 
 	//初期進行方向の設定
 	direction = Vector2D(1.0f, -0.5f);
 
-
+	//オブジェクトのタイプ設定
+	type = BOMB;
 }
 
 //更新処理
@@ -83,7 +84,7 @@ void Bomb::Draw() const
 
 	//情報をもとに爆弾画像を描画
 	DrawRotaGraphF(location.x, location.y, 0.8, radian, bomb_image, TRUE, flip_flag);                
-	DrawRotaGraphF(location.x, location.y, 0.8, radian, blast_image, TRUE, flip_flag);
+	//DrawRotaGraphF(location.x, location.y, 0.8, radian, blast_image, TRUE, flip_flag);
 
 	//親クラスの描画処理を呼び出す
 	__super::Draw();
@@ -105,9 +106,9 @@ void Bomb::Finalize()
 {
 	//使用した画像を解放
 	DeleteGraph(bomb_animation);
-	DeleteGraph(blast_animation[0]);
+	/*DeleteGraph(blast_animation[0]);
 	DeleteGraph(blast_animation[1]);
-	DeleteGraph(blast_animation[2]);
+	DeleteGraph(blast_animation[2]);*/
 }
 
 
