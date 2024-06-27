@@ -3,7 +3,7 @@
 #include "../Bomb/Bomb.h"
 
 //コンストラクタ
-BoxEnemy::BoxEnemy() : animation_count(0), direction(0.0f)
+BoxEnemy::BoxEnemy() : animation_count(0), direction(0.0f),r(0)
 {
 	boxenemy_animation[0] = NULL;
 	boxenemy_animation[1] = NULL;
@@ -23,18 +23,33 @@ void BoxEnemy::Initialize()
 	//画像の読み込み
 	boxenemy_animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
 	boxenemy_animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
-	/*wingenemy_animation[0] = LoadGraph("Resource/Images/WingEnemy/1.png");
-	wingenemy_animation[1] = LoadGraph("Resource/Images/WingEnemy/2.png");*/
+	
 
 	//エラーチェック
 	if (boxenemy_animation[0] == -1 || boxenemy_animation[1] == -1)
 	{
 		throw("ハコテキの画像がありません\n");
 	}
-	/*if (wingenemy_animation[0] == -1 || wingenemy_animation[1] == -1)
+	
+	//0，1で数字を取得
+	int r = GetRand(1);
+
+	//箱敵のスピードをランダムに設定する
+	float speed = (GetRand(2) % 2 * 0.5) + 1.0f;
+
+	//rが0なら左から出現、1なら右から出現
+	if (r == 0)
 	{
-		throw("ハネテキの画像がありません\n");
-	}*/
+		//右
+		direction = Vector2D(speed, 0.0f);
+		this->location.x = 80.0f;
+	}
+	else
+	{
+		//左
+		direction = Vector2D(-speed, 0.0f);
+		this->location.x = 800.0f;
+	}
 
 	//向きの設定
 	radian = 0.0f;

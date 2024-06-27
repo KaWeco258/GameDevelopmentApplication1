@@ -1,5 +1,9 @@
 #pragma once
-#define TIMELIMIT (600*15)  //制限時間（1分）
+#define TIMELIMIT (9000)  //制限時間（1分）
+#define POSITION_Y_0 (520.0f)
+#define POSITION_Y_1 (520.0f)
+#define POSITION_Y_2 (210.0f)
+#define POSITION_Y_3 (360.0f)
 
 #include  "../Objects/GameObject.h"
 #include "DxLib.h"
@@ -17,8 +21,8 @@ private:
 	int GameTime;  //スタート時間
 	bool being;    //爆弾を出すか出さないか
 	bool e_flg;
-
-
+	int t_count;
+	int RandamEnemy;
 public:
 	Scene();
 	~Scene();
@@ -31,6 +35,8 @@ public:
 private:
 	//当たり判定チェック処理
 	void HitCheckObject(GameObject* a, GameObject* b);
+	//ランダムに敵を出す
+	//void 
 	
 	//オブジェクト生成処理
 	template <class T>

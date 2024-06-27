@@ -8,11 +8,12 @@
 #include "DxLib.h"
 #include "../Objects/Bomb/Bomb.h"
 #include "../Objects/BombBlast/BombBlast.h"
+#include <stdlib.h>
 
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE),t_count(0)
 {
 	number[0] = NULL;
 	number[1] = NULL;
@@ -58,7 +59,8 @@ void Scene::Initialize()
 	hsi = LoadGraph("Resource/Images/Score/hs.png");
 	//制限時間の初期化
 	GameTime = TIMELIMIT;
-	
+	//経過時間の初期化
+	t_count = 0;
 
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 50.0f));
@@ -143,6 +145,7 @@ void Scene::Update()
 	}
 	
 
+
 	//画面上に爆弾が無ければ
 	if (being==FALSE)
 	{
@@ -168,62 +171,44 @@ void Scene::Update()
 	}*/
 	/*while (GameTime>0)
 	{*/
-		
 
+	//経過時間を加算
+	t_count++;
+	if (t_count >= 120)
+	{
+		//0～8までの乱数を取得
+		RandamEnemy = GetRand(8);
+
+		if (RandamEnemy == 0)
+		{
+			CreateObject<BoxEnemy>(Vector2D(80.0f, POSITION_Y_0));
+		}
+		else if (RandamEnemy == 1)
+		{
+			CreateObject<GoldEnemy>(Vector2D(0.0f, POSITION_Y_1));
+		}
+		else if (RandamEnemy == 2)
+		{
+			CreateObject<WingEnemy>(Vector2D(0.0f, POSITION_Y_2));
+		}
+		else if (RandamEnemy == 3)
+		{
+			CreateObject<WingEnemy>(Vector2D(0.0f, POSITION_Y_3));
+		}
+
+		t_count = 0;
+	}
 			
 		
 /*}*/
 	//制限時間の更新
 	GameTime--;
 	
-	/*if (GameTime == 54 || GameTime == 48 || GameTime == 42 || GameTime == 36 || GameTime == 30 || GameTime == 24 || GameTime == 18 || GameTime == 12 || GameTime == 6)
-	{*/
-		int GetRand(10);
-		int r = GetRand % 10 + 1;
-		//int SRand(r);
-		if (e_flg == FALSE)
-		{
-			if (GameTime / 150 % 6 == 0)
-			{
-				CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
-				e_flg = TRUE;
-			}
-		}
-			//switch (GetRand % 10 + 1)
-			//{
-			//case 1:
-			//	
-			//	break;
-
-			//case 2:
-			//	if (GameTime / 150 % 6 == 0)
-			//	{
-			//		CreateObject<BoxEnemy>(Vector2D(200.0f, 520.0f));
-			//	}
-			//	break;
-
-			//case 3:
-			//	if (GameTime / 150 % 6 == 0)
-			//	{
-			//		CreateObject<BoxEnemy>(Vector2D(300.0f, 520.0f));
-			//	}
-			//	break;
-
-			//case 4:
-			//	if (GameTime / 150 % 6 == 0)
-			//	{
-			//		CreateObject<BoxEnemy>(Vector2D(400.0f, 520.0f));
-			//	}
-			//	break;
-
-			//default:
-			//	//CreateObject<BoxEnemy>(Vector2D(100.0f, 320.0f));
-			//	break;
-
-			//
-			//}
+	
 		
-	/*}*/
+		
+		
+	
 	//制限時間が無くなったらの処理
 	if (GameTime < 0)
 	{
@@ -233,7 +218,25 @@ void Scene::Update()
 
 	
 }
-
+//void RandamEnemy()
+//{
+//	//int GetRand(100);
+//	int r = rand() % 100 + 1;
+//	//int SRand(r);
+//	if (r >= 0 && r < 20)
+//	{
+//		if (Scene::e_flg == FALSE)
+//		{
+//			
+//			CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
+//			/*CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
+//			CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
+//			CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));*/
+//			Scene::e_flg = TRUE;
+//				
+//		}
+//	}
+//}
 //描画処理
 void Scene::Draw() const
 {
@@ -243,14 +246,15 @@ void Scene::Draw() const
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
 	//タイマーの画像の描画
 	DrawGraph(30.0, 588.0, ti, FALSE);
-	//DrawFormatString(400.0, 300, GetColor(0, 0, 0), "%d", r, TRUE);
+	//制限時間の描画
+	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], TRUE);			//10の位
+	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], TRUE);    //1の位
 	//スコアという文字の画像の描画
 	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
 	//ハイスコアという文字の画像の描画
 	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
-	//制限時間の描画
-	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], FALSE);     //10の位
-	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], FALSE);    //1の位
+	
+	DrawFormatString(300, 500, GetColor(0, 0, 0),"%d",r, TRUE);
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{
@@ -312,6 +316,7 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 	}
 	
 }
+
 #else
 
 //当たり判定チェック処理(左上頂点の座標から当たり判定計算を行う)

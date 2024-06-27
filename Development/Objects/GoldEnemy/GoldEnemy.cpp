@@ -165,11 +165,11 @@ void GoldEnemy::AnimationControl()
 		}
 		else if (goldenemy_image == goldenemy_animation[3])
 		{
-			boxenemy_image = goldenemy_animation[4];
+			goldenemy_image = goldenemy_animation[4];
 		}
 		else if (goldenemy_image == goldenemy_animation[4])
 		{
-			goldenemy_image == goldenemy_animation[0];
+			goldenemy_image = goldenemy_animation[0];
 		}
 
 		
