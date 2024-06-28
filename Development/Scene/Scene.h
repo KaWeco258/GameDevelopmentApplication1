@@ -22,6 +22,7 @@ private:
 	bool being;    //爆弾を出すか出さないか
 	bool e_flg;
 	int t_count;
+	int result_count;
 	int RandamEnemy;
 	int SumScore;
 	int  Result[5];   //リザルトの画像

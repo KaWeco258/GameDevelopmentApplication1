@@ -13,7 +13,7 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE),t_count(0),being(FALSE)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE),t_count(0),being(FALSE),ResultImage(0),RandamEnemy(0),SumScore(0)
 {
 	//番号の画像の初期化
 	number[0] = NULL;
@@ -73,6 +73,7 @@ void Scene::Initialize()
 	GameTime = TIMELIMIT;
 	//経過時間の初期化
 	t_count = 0;
+	result_count = 0;
 
 	//
 	ResultImage = Result[0];
@@ -127,7 +128,7 @@ void Scene::Update()
 				SumScore = 0;
 			}
 
-			dynamic_cast
+			
 			objects.erase(objects.begin() + i);
 			//continue;
 		}
@@ -257,7 +258,7 @@ void Scene::Update()
 	if (t_count >= 120)
 	{
 		//0～8までの乱数を取得
-		RandamEnemy = GetRand(8);
+		RandamEnemy = GetRand(5);
 
 		if (RandamEnemy == 0)
 		{
@@ -302,7 +303,7 @@ void Scene::Update()
 	{
 		//秒数を0にする
 		GameTime = 0;
-
+		
 		//
 		ResultScene();
 		Draw();
@@ -405,7 +406,28 @@ void Scene::ResultScene()
 	Draw();
 	//動的配列の解放
 	objects.clear();
+	result_count++;
+	if (result_count > 300)
+	{
+		//
+		if (SumScore >= 1100)
+		{
+			ResultImage = Result[4];
+		}
+		else if (SumScore >= 850)
+		{
+			ResultImage = Result[3];
+		}
+		else if (SumScore >= 600)
+		{
+			ResultImage = Result[2];
+		}
+		else
+		{
+			ResultImage = Result[1];
+		}
 
+	}
 
 }
 #ifdef D_PIVOT_CENTER

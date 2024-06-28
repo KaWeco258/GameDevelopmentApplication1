@@ -158,7 +158,7 @@ void GoldEnemy::OnHitCollision(GameObject* hit_object)
 	//”š’e‚É“–‚½‚Á‚½‚ç
 	else
 	{
-		score = 150;
+		score = 100;
 		//“G‚ğÁ‚·ˆ—
 		Efface = FALSE;
 	}
