@@ -21,12 +21,14 @@ protected:
 	int wingenemy_image;        //描画する画像(羽敵)
 	int goldenemy_image;        //描画する画像(金敵)
 	int harpy_image;        //描画する画像(金敵)
-	//int blast_image[3];        //描画する画像(爆風)
 	int player_image;           //描画する画像(プレイヤー)
 	int sound;					//再生する音源
 	bool Efface;          //消す処理(仮)
 	int type;				//オブジェクトのタイプ
+	int score;				//オブジェクトのタイプ
 
+public:
+	float speed;
 
 
 public:
@@ -49,6 +51,8 @@ public:
 
 	//位置情報取得処理
 	Vector2D GetLocation() const;
+	//
+	int GetScore(); //const;
 	//位置情報変更処理
 	void SetLocation(const Vector2D& location);
 

@@ -10,8 +10,8 @@ GameObject::GameObject() :
 	wingenemy_image(0),
 	player_image(0),
 	sound(0),
-	Efface(FALSE)
-	
+	Efface(FALSE),
+	score(0)
 {
 
 
@@ -81,6 +81,12 @@ int GameObject::GetObjectType()
 Vector2D GameObject::GetLocation() const
 {
 	return this->location;
+}
+
+//
+int GameObject::GetScore() //const
+{
+	return this->score;
 }
 
 //ˆÊ’uî•ñÝ’èˆ—

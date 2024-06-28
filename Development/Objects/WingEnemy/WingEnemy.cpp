@@ -29,10 +29,27 @@ void WingEnemy::Initialize()
 	{
 		throw("ハネテキの画像がありません\n");
 	}
-	/*if (wingenemy_animation[0] == -1 || wingenemy_animation[1] == -1)
+	
+	//0，1で数字を取得
+	int r = GetRand(1);
+
+	//箱敵のスピードをランダムに設定する
+	float speed = (GetRand(2) % 2 * 0.5) + 1.0f;
+
+	//rが0なら左から出現、1なら右から出現
+	if (r == 0)
 	{
-		throw("ハネテキの画像がありません\n");
-	}*/
+		//右
+		direction = Vector2D(speed, 0.0f);
+		this->location.x = 80.0f;
+	}
+	else
+	{
+		//左
+		direction = Vector2D(-speed, 0.0f);
+		this->location.x = 800.0f;
+	}
+
 
 	//向きの設定
 	radian = 0.0f;
@@ -110,21 +127,30 @@ void WingEnemy::Movement()
 	location += direction;
 }
 
+//移動方向の設定
+Vector2D WingEnemy::SetDirection(Vector2D& E_direction)
+{
+	return this->direction.x = E_direction.x;
+}
+
 //当たり判定通知処理
 void WingEnemy::OnHitCollision(GameObject* hit_object)
 {
 	//当たった時に行う処理
 	//direction = 0.0f;
 
+
 	//爆弾に当たって無かったら
 	if (dynamic_cast<Bomb*>(hit_object) != nullptr)
 	{
+		score = 50;
 		//敵を描画し続ける
 		Efface = TRUE;
 	}
 	//爆弾に当たったら
 	else
 	{
+		
 		//敵を消す処理
 		Efface = FALSE;
 	}

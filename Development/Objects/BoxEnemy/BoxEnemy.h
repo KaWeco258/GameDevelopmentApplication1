@@ -26,7 +26,8 @@ public:
 	//“–‚½‚è”»’è’Ê’mˆ—
 	virtual void OnHitCollision(GameObject* hit_object) override;
 
-
+	//ˆÚ“®•ûŒü‚Ìİ’è
+	Vector2D SetDirection(Vector2D& E_direction);
 
 private:
 	//ˆÚ“®ˆ—

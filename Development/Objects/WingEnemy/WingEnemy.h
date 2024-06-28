@@ -10,6 +10,7 @@ private:
 	int wingenemy_animation[2];      //アニメーション画像
 	int animation_count;   //アニメーション時間
 	Vector2D direction;     //進行方向
+	int r;     //乱数
 
 
 public:
@@ -24,7 +25,8 @@ public:
 	//当たり判定通知処理
 	virtual void OnHitCollision(GameObject* hit_object) override;
 
-
+	//移動方向の設定
+	Vector2D SetDirection(Vector2D& E_direction);
 
 private:
 	//移動処理

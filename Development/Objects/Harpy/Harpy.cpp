@@ -31,6 +31,26 @@ void Harpy::Initialize()
 		throw("ハーピーの画像がありません\n");
 	}
 	
+	//0，1で数字を取得
+	//int r = GetRand(1);
+
+	//箱敵のスピードをランダムに設定する
+	speed = 0.0f;
+
+	////rが0なら左から出現、1なら右から出現
+	//if (r == 0)
+	//{
+	//	//右
+	//	direction = Vector2D(speed, 0.0f);
+	//	this->location.x = 80.0f;
+	//}
+	//else
+	//{
+	//	//左
+	//	direction = Vector2D(-speed, 0.0f);
+	//	this->location.x = 800.0f;
+	//}
+
 
 	//向きの設定
 	radian = 0.0f;
@@ -109,6 +129,12 @@ void Harpy::Movement()
 	location += direction;
 }
 
+//移動方向の設定
+Vector2D Harpy::SetDirection(Vector2D& E_direction)
+{
+	return this->direction.x = E_direction.x;
+}
+
 //当たり判定通知処理
 void Harpy::OnHitCollision(GameObject* hit_object)
 {
@@ -118,6 +144,7 @@ void Harpy::OnHitCollision(GameObject* hit_object)
 	//爆弾に当たって無かったら
 	if (dynamic_cast<Bomb*>(hit_object) != nullptr)
 	{
+		score = -50;
 		//敵を描画し続ける
 		Efface = TRUE;
 	}

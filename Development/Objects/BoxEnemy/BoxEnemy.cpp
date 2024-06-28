@@ -35,21 +35,21 @@ void BoxEnemy::Initialize()
 	int r = GetRand(1);
 
 	//箱敵のスピードをランダムに設定する
-	float speed = (GetRand(2) % 2 * 0.5) + 1.0f;
+	speed = 0.0f;//(GetRand(2) % 2 * 0.5) + 1.0f;
 
 	//rが0なら左から出現、1なら右から出現
-	if (r == 0)
-	{
-		//右
-		direction = Vector2D(speed, 0.0f);
-		this->location.x = 80.0f;
-	}
-	else
-	{
-		//左
-		direction = Vector2D(-speed, 0.0f);
-		this->location.x = 800.0f;
-	}
+	//if (r == 0)
+	//{
+	//	//右
+	//	direction = Vector2D(speed, 0.0f);
+	//	this->location.x = 80.0f;
+	//}
+	//else
+	//{
+	//	//左
+	//	direction = Vector2D(-speed, 0.0f);
+	//	this->location.x = 800.0f;
+	//}
 
 	//向きの設定
 	radian = 0.0f;
@@ -59,7 +59,6 @@ void BoxEnemy::Initialize()
 
 	//初期画像の設定
 	boxenemy_image = boxenemy_animation[0];
-	//wingenemy_image = wingenemy_animation[0];
 
 	//初期進行方向の設定
 	direction = Vector2D(1.0f, 0.0f);
@@ -106,8 +105,7 @@ void BoxEnemy::Finalize()
 	//使用した画像を解放
 	DeleteGraph(boxenemy_animation[0]);
 	DeleteGraph(boxenemy_animation[1]);
-	/*DeleteGraph(wingenemy_animation[0]);
-	DeleteGraph(wingenemy_animation[1]);*/
+	
 }
 
 
@@ -130,6 +128,12 @@ void BoxEnemy::Movement()
 	//進行方向に向かって、位置座標を変更する
 	location += direction;
 }
+
+//移動方向の設定
+Vector2D BoxEnemy::SetDirection(Vector2D& E_direction)
+{
+	return this->direction.x = E_direction.x;
+}
  
 //当たり判定通知処理
 void BoxEnemy::OnHitCollision(GameObject* hit_object)
@@ -146,6 +150,7 @@ void BoxEnemy::OnHitCollision(GameObject* hit_object)
 	//爆弾に当たったら
 	else
 	{
+		score = 30;
 		//敵を消す処理
 		Efface = FALSE;
 	}

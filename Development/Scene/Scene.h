@@ -23,6 +23,9 @@ private:
 	bool e_flg;
 	int t_count;
 	int RandamEnemy;
+	int SumScore;
+	int  Result[5];   //リザルトの画像
+	int  ResultImage;   //リザルトの格納する箱
 public:
 	Scene();
 	~Scene();
@@ -31,6 +34,7 @@ public:
 	void Update();
 	void Draw() const;
 	void Finalize();
+	void ResultScene();
 
 private:
 	//当たり判定チェック処理

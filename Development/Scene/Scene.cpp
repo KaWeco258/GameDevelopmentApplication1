@@ -13,8 +13,9 @@
 #define D_PIVOT_CENTER
 
 //コンストラクタ
-Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE),t_count(0)
+Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALSE),t_count(0),being(FALSE)
 {
+	//番号の画像の初期化
 	number[0] = NULL;
 	number[1] = NULL;
 	number[2] = NULL;
@@ -25,7 +26,12 @@ Scene::Scene() : objects(),bg(0),ti(0),si(0),hsi(0),GameTime(0),r(0), e_flg(FALS
 	number[7] = NULL;
 	number[8] = NULL;
 	number[9] = NULL;
-	being = FALSE;
+	//リザルトの画像の初期化
+	Result[0] = NULL;
+	Result[1] = NULL;
+	Result[2] = NULL;
+	Result[3] = NULL;
+	Result[4] = NULL;
 }
 
 //デストラクタ
@@ -53,6 +59,12 @@ void Scene::Initialize()
 	number[7] = LoadGraph("Resource/Images/Score/7.png");
 	number[8] = LoadGraph("Resource/Images/Score/8.png");
 	number[9] = LoadGraph("Resource/Images/Score/9.png");
+	//リザルトの画像の読込み
+	Result[0] = LoadGraph("Resource/Images/Evalution/Finish.png");
+	Result[1] = LoadGraph("Resource/Images/Evalution/BAD.png");
+	Result[2] = LoadGraph("Resource/Images/Evalution/OK.png");
+	Result[3] = LoadGraph("Resource/Images/Evalution/GOOD.png");
+	Result[4] = LoadGraph("Resource/Images/Evalution/Perfect.png");
 	//スコアという文字の画像の読込み
 	si = LoadGraph("Resource/Images/Score/font-21.png");
 	//ハイスコアという文字の画像の読込み
@@ -62,6 +74,8 @@ void Scene::Initialize()
 	//経過時間の初期化
 	t_count = 0;
 
+	//
+	ResultImage = Result[0];
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 50.0f));
 }
@@ -106,6 +120,14 @@ void Scene::Update()
 				CreateObject<BombBlast>(bp);
 			}
 
+			SumScore += objects[i]->GetScore();
+
+			if (SumScore < 0)
+			{
+				SumScore = 0;
+			}
+
+			dynamic_cast
 			objects.erase(objects.begin() + i);
 			//continue;
 		}
@@ -131,12 +153,48 @@ void Scene::Update()
 	//敵が画面左右に到達したら消す
 	for (int i = 0; i < objects.size(); i++)
 	{
-
+		//箱敵
 		if (dynamic_cast<BoxEnemy*>(objects[i]) != nullptr)
 		{
 			Vector2D bep;
 			bep = objects[i]->GetLocation();   //敵の現在位置
 			if (bep.x > 900.0||bep.x < 50.0)
+			{
+				objects.erase(objects.begin() + i);
+				e_flg = FALSE;
+			}
+		}
+
+		//羽敵
+		if (dynamic_cast<WingEnemy*>(objects[i]) != nullptr)
+		{
+			Vector2D bep;
+			bep = objects[i]->GetLocation();   //敵の現在位置
+			if (bep.x > 900.0 || bep.x < 50.0)
+			{
+				objects.erase(objects.begin() + i);
+				e_flg = FALSE;
+			}
+		}
+
+		//金敵
+		if (dynamic_cast<GoldEnemy*>(objects[i]) != nullptr)
+		{
+			Vector2D bep;
+			bep = objects[i]->GetLocation();   //敵の現在位置
+			if (bep.x > 900.0 || bep.x < 50.0)
+			{
+				objects.erase(objects.begin() + i);
+				e_flg = FALSE;
+			}
+		}
+
+		//ハーピー
+		if (dynamic_cast<Harpy*>(objects[i]) != nullptr)
+		{
+			Vector2D bep;
+			bep = objects[i]->GetLocation();   //敵の現在位置
+			if (bep.x > 900.0 || bep.x < 50.0)
 			{
 				objects.erase(objects.begin() + i);
 				e_flg = FALSE;
@@ -172,6 +230,28 @@ void Scene::Update()
 	/*while (GameTime>0)
 	{*/
 
+
+	Vector2D E_location;
+	Vector2D E_Direction;
+	int r = GetRand(1);		//0，1で数字を取得
+
+	//箱敵のスピードをランダムに設定する
+	E_Direction.x = (GetRand(2) % 2 * 0.5) + 1.0f;
+
+	//rが0なら左から出現、1なら右から出現
+	if (r == 0)
+	{
+		//右
+		E_Direction.x = E_Direction.x * 1;
+		E_location.x = 70.0f;
+	}
+	else
+	{
+		//左
+		E_Direction.x = E_Direction.x * -1;
+		E_location.x = 900.0f;
+	}
+
 	//経過時間を加算
 	t_count++;
 	if (t_count >= 120)
@@ -181,26 +261,34 @@ void Scene::Update()
 
 		if (RandamEnemy == 0)
 		{
-			CreateObject<BoxEnemy>(Vector2D(80.0f, POSITION_Y_0));
+			CreateObject<BoxEnemy>(Vector2D(E_location.x, POSITION_Y_0))->SetDirection(E_Direction);
 		}
 		else if (RandamEnemy == 1)
 		{
-			CreateObject<GoldEnemy>(Vector2D(0.0f, POSITION_Y_1));
+			CreateObject<GoldEnemy>(Vector2D(E_location.x, POSITION_Y_1))->SetDirection(E_Direction);
 		}
 		else if (RandamEnemy == 2)
 		{
-			CreateObject<WingEnemy>(Vector2D(0.0f, POSITION_Y_2));
+			CreateObject<WingEnemy>(Vector2D(E_location.x, POSITION_Y_2))->SetDirection(E_Direction);
 		}
 		else if (RandamEnemy == 3)
 		{
-			CreateObject<WingEnemy>(Vector2D(0.0f, POSITION_Y_3));
+			CreateObject<WingEnemy>(Vector2D(E_location.x, POSITION_Y_3))->SetDirection(E_Direction);
+		}
+		else if (RandamEnemy == 4)
+		{
+			CreateObject<Harpy>(Vector2D(E_location.x, POSITION_Y_2))->SetDirection(E_Direction);
+		}
+		else if (RandamEnemy == 5)
+		{
+			CreateObject<Harpy>(Vector2D(E_location.x, POSITION_Y_3))->SetDirection(E_Direction);
 		}
 
 		t_count = 0;
 	}
 			
 		
-/*}*/
+
 	//制限時間の更新
 	GameTime--;
 	
@@ -214,6 +302,10 @@ void Scene::Update()
 	{
 		//秒数を0にする
 		GameTime = 0;
+
+		//
+		ResultScene();
+		Draw();
 	}
 
 	
@@ -237,6 +329,7 @@ void Scene::Update()
 //		}
 //	}
 //}
+
 //描画処理
 void Scene::Draw() const
 {
@@ -248,13 +341,25 @@ void Scene::Draw() const
 	DrawGraph(30.0, 588.0, ti, FALSE);
 	//制限時間の描画
 	DrawExtendGraph(90.0, 588.0,140.0,645.0, number[GameTime / 150/10], TRUE);			//10の位
-	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], TRUE);    //1の位
+	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], TRUE);		//1の位
+	//DrawFormatString(141.0, 588.0, GetColor(255,0,0),"%d", GameTime / 150 , TRUE);		
 	//スコアという文字の画像の描画
 	DrawExtendGraph(230.0, 588.0,350.0,645.0, si, FALSE);
+	//
+	//DrawFormatString(420.0, 408.0, GetColor(0, 0, 0), "%d", SumScore, TRUE);
+	DrawExtendGraph(370.0, 588.0, 420.0, 645.0, number[SumScore / 1000], TRUE);
+	DrawExtendGraph(420.0, 588.0, 470.0, 645.0, number[(SumScore%1000)/100], TRUE);
+	DrawExtendGraph(470.0, 588.0, 520.0, 645.0, number[(SumScore%1000%100)/10], TRUE);
+	DrawExtendGraph(520.0, 588.0, 570.0, 645.0, number[(SumScore%1000%100)%10], TRUE);
 	//ハイスコアという文字の画像の描画
-	DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
+	//DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
+
+	if (GameTime == 0)
+	{
+		DrawGraph(320, 250, ResultImage, TRUE);
+	}
 	
-	DrawFormatString(300, 500, GetColor(0, 0, 0),"%d",r, TRUE);
+	//DrawFormatString(300, 500, GetColor(0, 0, 0),"%d",r, TRUE);
 	//オブジェクトリスト内のオブジェクトを描画
 	for (GameObject* obj : objects)
 	{
@@ -295,6 +400,14 @@ void Scene::Finalize()
 	
 }
 
+void Scene::ResultScene()
+{
+	Draw();
+	//動的配列の解放
+	objects.clear();
+
+
+}
 #ifdef D_PIVOT_CENTER
 
 //当たり判定チェック処理(矩形の中心で当たり判定をとる)
