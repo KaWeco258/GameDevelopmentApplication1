@@ -69,13 +69,21 @@ void Scene::Initialize()
 	si = LoadGraph("Resource/Images/Score/font-21.png");
 	//ハイスコアという文字の画像の読込み
 	hsi = LoadGraph("Resource/Images/Score/hs.png");
+	//BGMの読込み
+	main_bgm[0] = LoadSoundMem("Resource/Sounds/Evalution/BGM_arrows.wav");
+	main_bgm[1] = LoadSoundMem("Resource/Sounds/Evalution/BGM_timeup.wav");
+	//SEの読込み
+	result_se[0] = LoadSoundMem("Resource/Sounds/Evalution/SE_bad.wav");
+	result_se[1] = LoadSoundMem("Resource/Sounds/Evalution/SE_ok.wav");
+	result_se[2] = LoadSoundMem("Resource/Sounds/Evalution/SE_good.wav");
+	result_se[3] = LoadSoundMem("Resource/Sounds/Evalution/SE_perfect.wav");
 	//制限時間の初期化
 	GameTime = TIMELIMIT;
 	//経過時間の初期化
 	t_count = 0;
 	result_count = 0;
 
-	//
+	//0になったらフィニッシュと表示させる用の変数
 	ResultImage = Result[0];
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 50.0f));
@@ -288,54 +296,43 @@ void Scene::Update()
 		t_count = 0;
 	}
 			
+	//BGMの再生
+	PlaySoundMem(main_bgm[0], DX_PLAYTYPE_LOOP, FALSE);
+	
+	
+	
 		
-
+		
 	//制限時間の更新
 	GameTime--;
-	
-	
-		
-		
-		
 	
 	//制限時間が無くなったらの処理
 	if (GameTime < 0)
 	{
 		//秒数を0にする
 		GameTime = 0;
+		//再生を止める
+		StopSoundMem(main_bgm[0]);
+		//BGMの再生
+		PlaySoundMem(main_bgm[1], DX_PLAYTYPE_NORMAL, FALSE);
+		//SEの再生
+		PlaySoundMem(ResultSE, DX_PLAYTYPE_NORMAL, FALSE);
 		
-		//
 		ResultScene();
-		Draw();
+		TimeUpDraw();
 	}
 
 	
 }
-//void RandamEnemy()
-//{
-//	//int GetRand(100);
-//	int r = rand() % 100 + 1;
-//	//int SRand(r);
-//	if (r >= 0 && r < 20)
-//	{
-//		if (Scene::e_flg == FALSE)
-//		{
-//			
-//			CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
-//			/*CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
-//			CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));
-//			CreateObject<BoxEnemy>(Vector2D(80.0f, 520.0f));*/
-//			Scene::e_flg = TRUE;
-//				
-//		}
-//	}
-//}
+
 
 //描画処理
 void Scene::Draw() const
 {
+	
 	//背景画像の描画
 	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
+	
 	//画面の一番下に黒い四角形の図形の描画
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
 	//タイマーの画像の描画
@@ -355,10 +352,7 @@ void Scene::Draw() const
 	//ハイスコアという文字の画像の描画
 	//DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
 
-	if (GameTime == 0)
-	{
-		DrawGraph(320, 250, ResultImage, TRUE);
-	}
+	
 	
 	//DrawFormatString(300, 500, GetColor(0, 0, 0),"%d",r, TRUE);
 	//オブジェクトリスト内のオブジェクトを描画
@@ -366,6 +360,42 @@ void Scene::Draw() const
 	{
 		obj->Draw();
 	}
+}
+
+//制限時間が0の時の描画処理
+void Scene::TimeUpDraw() const
+{
+	//背景画像の描画
+	DrawExtendGraph(0.0, 0.0, 940.0, 640.0, bg, FALSE);
+	
+	//画面の一番下に黒い四角形の図形の描画
+	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
+	//タイマーの画像の描画
+	DrawGraph(30.0, 588.0, ti, FALSE);
+	//制限時間の描画
+	DrawExtendGraph(90.0, 588.0, 140.0, 645.0, number[GameTime / 150 / 10], TRUE);			//10の位
+	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], TRUE);		//1の位
+	//DrawFormatString(141.0, 588.0, GetColor(255,0,0),"%d", GameTime / 150 , TRUE);		
+	//スコアという文字の画像の描画
+	DrawExtendGraph(230.0, 588.0, 350.0, 645.0, si, FALSE);
+	//
+	//DrawFormatString(420.0, 408.0, GetColor(0, 0, 0), "%d", SumScore, TRUE);
+	DrawExtendGraph(370.0, 588.0, 420.0, 645.0, number[SumScore / 1000], TRUE);
+	DrawExtendGraph(420.0, 588.0, 470.0, 645.0, number[(SumScore % 1000) / 100], TRUE);
+	DrawExtendGraph(470.0, 588.0, 520.0, 645.0, number[(SumScore % 1000 % 100) / 10], TRUE);
+	DrawExtendGraph(520.0, 588.0, 570.0, 645.0, number[(SumScore % 1000 % 100) % 10], TRUE);
+	//ハイスコアという文字の画像の描画
+	//DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
+
+
+
+		
+		//
+		DrawGraph(470, 325,  ResultImage, TRUE);
+		DrawRotaGraph(470, 325, 1, 0, ResultImage, FALSE, FALSE);
+	
+
+	
 }
 
 //終了時処理
@@ -398,33 +428,51 @@ void Scene::Finalize()
 	DeleteGraph(number[7]);
 	DeleteGraph(number[8]);
 	DeleteGraph(number[9]);
+	//音源の解放
+	DeleteSoundMem(main_bgm[0]);
+	DeleteSoundMem(main_bgm[1]);
+	DeleteSoundMem(result_se[0]);
+	DeleteSoundMem(result_se[1]);
+	DeleteSoundMem(result_se[2]);
+	DeleteSoundMem(result_se[3]);
+
 	
 }
 
 void Scene::ResultScene()
 {
-	Draw();
+	TimeUpDraw();
 	//動的配列の解放
 	objects.clear();
+
 	result_count++;
 	if (result_count > 300)
 	{
-		//
+		//スコアによって結果を変える
 		if (SumScore >= 1100)
 		{
+			//パーフェクト
 			ResultImage = Result[4];
+			ResultSE = result_se[3];
 		}
 		else if (SumScore >= 850)
 		{
+			//グッド
 			ResultImage = Result[3];
+			ResultSE = result_se[2];
 		}
 		else if (SumScore >= 600)
 		{
+			//オーケー
 			ResultImage = Result[2];
+			ResultSE = result_se[1];
 		}
 		else
 		{
+			//バッド
 			ResultImage = Result[1];
+			ResultSE = result_se[0];
+
 		}
 
 	}

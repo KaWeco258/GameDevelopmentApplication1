@@ -20,13 +20,16 @@ private:
 	int hsi;   //ハイスコアという文字の画像
 	int GameTime;  //スタート時間
 	bool being;    //爆弾を出すか出さないか
-	bool e_flg;
-	int t_count;
-	int result_count;
-	int RandamEnemy;
-	int SumScore;
+	bool e_flg;  //敵のフラグ
+	int t_count;		//経過時間
+	int result_count;	//間を開けて結果を出すための変数
+	int RandamEnemy;	//敵をランダムに出すための変数
+	int SumScore;		//合計スコア
 	int  Result[5];   //リザルトの画像
-	int  ResultImage;   //リザルトの格納する箱
+	int  ResultImage;   //リザルトの画像を格納する変数
+	int main_bgm[2];		//BGM
+	int result_se[4];	//SE
+	int ResultSE;	//SEの音源を格納する変数
 public:
 	Scene();
 	~Scene();
@@ -34,6 +37,7 @@ public:
 	void Initialize();
 	void Update();
 	void Draw() const;
+	void TimeUpDraw() const;
 	void Finalize();
 	void ResultScene();
 
