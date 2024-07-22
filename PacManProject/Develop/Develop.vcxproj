@@ -134,12 +134,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AppMain.cpp" />
+    <ClCompile Include="Objects\Enemy\BlueEnemy.cpp" />
     <ClCompile Include="Objects\Enemy\EnemyBase.cpp" />
     <ClCompile Include="Objects\Food\Food.cpp" />
     <ClCompile Include="Objects\Food\PowerFood.cpp" />
     <ClCompile Include="Objects\GameObjectBase.cpp" />
     <ClCompile Include="Objects\Player\Player.cpp" />
     <ClCompile Include="Objects\Wall\Wall.cpp" />
+    <ClCompile Include="Objects\Enemy\RedEnemy.cpp" />
+    <ClCompile Include="Objects\Enemy\PinkEnemy.cpp" />
     <ClCompile Include="Scenes\InGame\InGameScene.cpp" />
     <ClCompile Include="Scenes\InGame\ResultScene.cpp" />
     <ClCompile Include="Scenes\SceneManager.cpp" />
@@ -150,8 +153,10 @@
     <ClCompile Include="Utility\ResourceManager.cpp" />
     <ClCompile Include="Utility\StageData.cpp" />
     <ClCompile Include="Utility\Vector2D.cpp" />
+    <ClCompile Include="Objects\Enemy\YellowEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Objects\Enemy\BlueEnemy.h" />
     <ClInclude Include="Objects\Food\PowerFood.h" />
     <ClInclude Include="Objects\GameObject.h" />
     <ClInclude Include="Objects\Enemy\EnemyBase.h" />
@@ -159,6 +164,8 @@
     <ClInclude Include="Objects\GameObjectBase.h" />
     <ClInclude Include="Objects\Player\Player.h" />
     <ClInclude Include="Objects\Wall\Wall.h" />
+    <ClInclude Include="Objects\Enemy\RedEnemy.h" />
+    <ClInclude Include="Objects\Enemy\PinkEnemy.h" />
     <ClInclude Include="Scenes\InGame\InGameScene.h" />
     <ClInclude Include="Scenes\InGame\ResultScene.h" />
     <ClInclude Include="Scenes\SceneBase.h" />
@@ -170,6 +177,7 @@
     <ClInclude Include="Utility\ResourceManager.h" />
     <ClInclude Include="Utility\StageData.h" />
     <ClInclude Include="Utility\Vector2D.h" />
+    <ClInclude Include="Objects\Enemy\YellowEnemy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
