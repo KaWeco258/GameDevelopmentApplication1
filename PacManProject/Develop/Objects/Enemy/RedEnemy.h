@@ -1,5 +1,5 @@
-#pragma once
-class RedEnemy
-{
-};
-
+//#pragma once
+//class RedEnemy
+//{
+//};
+//

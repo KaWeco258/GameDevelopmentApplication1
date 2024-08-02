@@ -1,5 +1,5 @@
-#pragma once
-class BlueEnemy
-{
-};
+//#pragma once
+//class BlueEnemy
+//{
+//};
 
