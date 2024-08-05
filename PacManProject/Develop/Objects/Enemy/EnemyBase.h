@@ -6,24 +6,24 @@
 // プレイヤー状態
 enum eEnemyState
 {
-	IJIKE,		// 逃亡状態
-	MOVE,		// 追跡状態
-	HOME,		// 帰宅状態
+	ENEMY_IJIKE,		// 逃亡状態
+	ENEMY_MOVE,		// 追跡状態
+	ENEMY_HOME,		// 帰宅状態
 };
 
 /// <summary>
 /// プレイヤークラス（パックマン）
 /// </summary>
-class Enemy : public GameObject
+class EnemyBase : public GameObject
 {
 private:
 	// 進行方向状態
 	enum eDirectionState : unsigned char
 	{
-		UP,
-		RIGHT,
-		DOWN,
-		LEFT,
+		ENEMY_UP,
+		ENEMY_RIGHT,
+		ENEMY_DOWN,
+		ENEMY_LEFT,
 	};
 
 private:
@@ -58,8 +58,8 @@ private:
 	const int animation_num[4] = { 0, 1, 2, 1, };
 
 public:
-	Enemy();
-	virtual ~Enemy();
+	EnemyBase();
+	virtual ~EnemyBase();
 
 	virtual void Initialize() override;
 	virtual void Update(float delta_second) override;
