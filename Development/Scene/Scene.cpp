@@ -390,9 +390,9 @@ void Scene::TimeUpDraw() const
 
 
 		
-		//
-		DrawGraph(470, 325,  ResultImage, TRUE);
-		DrawRotaGraph(470, 325, 1, 0, ResultImage, FALSE, FALSE);
+	//
+	DrawGraph(470, 325,  ResultImage, TRUE);
+	DrawRotaGraph(470, 325, 1, 0, ResultImage, FALSE, FALSE);
 	
 
 	

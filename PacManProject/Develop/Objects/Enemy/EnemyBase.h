@@ -40,7 +40,7 @@ private:
 
 private:
 	std::vector<int> move_animation;		// 移動のアニメーション画像
-	std::vector<int> dying_animation;		// 死亡のアニメーション画像
+	std::vector<int> eyes_animation;		// 死亡のアニメーション画像
 	Vector2D old_location;					// 前回のlocation
 	Vector2D velocity;						// 移動量
 	eEnemyState enemy_state;				// プレイヤー状態
@@ -53,6 +53,7 @@ private:
 	//bool is_power_up;						// パワー餌を食べたか？
 	//bool is_destroy;						// 死んだ状態になったか？
 	bool is_ijike;						// パワー餌を食べられたか？
+	int eye_image;						//
 
 	// 移動アニメーションの順番
 	const int animation_num[4] = { 0, 1, 2, 1, };
