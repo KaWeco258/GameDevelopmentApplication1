@@ -38,7 +38,7 @@ private:
 		WAIT,
 	};
 
-private:
+protected:
 	std::vector<int> move_animation;		// 移動のアニメーション画像
 	std::vector<int> eyes_animation;		// 死亡のアニメーション画像
 	Vector2D old_location;					// 前回のlocation

@@ -35,7 +35,6 @@ void EnemyBase::Initialize()
 {
 	// アニメーション画像の読み込み
 	ResourceManager* rm = ResourceManager::GetInstance();
-	move_animation = rm->GetImages("Resource/Images/monster.png", 20, 20, 1, 32, 32);
 	eyes_animation = rm->GetImages("Resource/Images/eyes.png", 4, 4, 1, 32, 32);
 	eye_image = eyes_animation[1];
 	//dying_animation = rm->GetImages("Resource/Images/eyes.png", 11, 11, 1, 32, 32);
