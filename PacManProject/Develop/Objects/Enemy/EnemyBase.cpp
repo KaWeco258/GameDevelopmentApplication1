@@ -65,7 +65,7 @@ void EnemyBase::Update(float delta_second)
 	{
 	case eEnemyState::ENEMY_IJIKE:
 		// 画像の設定
-		image = move_animation[9];
+		//image = move_animation[9];
 		break;
 	case eEnemyState::ENEMY_MOVE:
 		// 移動処理
@@ -163,6 +163,11 @@ void EnemyBase::OnHitCollision(GameObjectBase* hit_object)
 	//	player_state = eEnemyState::DIE;
 	//}
 }
+
+//eEnemyState EnemyBase::GetEnemyState() const
+//{
+//	return eEnemyState();
+//}
 
 /// <summary>
 /// 餌を食べた数取得
@@ -406,24 +411,26 @@ void EnemyBase::Movement(float delta_second)
 /// <param name="delta_second">1フレームあたりの時間</param>
 void EnemyBase::AnimationControl(float delta_second)
 {
-	// 移動中のアニメーション
-	animation_time += delta_second;
-	if (animation_time >= (1.0f / 16.0f))
-	{
-		animation_time = 0.0f;
-		animation_count++;
-		if (animation_count >= 4)
-		{
-			animation_count = 0;
-		}
-		// 画像の設定
-		int dir_num = (int)now_direction_state;
-		if (0 <= dir_num && dir_num < 4)
-		{
-			image = move_animation[(dir_num * 3) + animation_num[animation_count]];
-		}
+	//// 移動中のアニメーション
+	//animation_time += delta_second;
+	//if (animation_time >= (1.0f / 16.0f))
+	//{
+	//	animation_time = 0.0f;
+	//	animation_count++;
+	//	if (animation_count >= 2)
+	//	{
+	//		animation_count = 0;
+	//	}
+	//	image = move_animation[animation_num[animation_count]];
 
-	}
+	//	// 画像の設定
+	//	//int dir_num = (int)now_direction_state;
+	//	//if (0 <= dir_num && dir_num < 4)
+	//	//{
+	//	//	image = move_animation[(dir_num * 3) + animation_num[animation_count]];
+	//	//}
+
+	//}
 
 	if (velocity.x > 0)
 	{

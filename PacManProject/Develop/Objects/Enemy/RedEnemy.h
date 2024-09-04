@@ -13,7 +13,7 @@ public:
 	 void Draw(const Vector2D& screen_offset) const override;
 	 void Finalize() override;
 
-	 void Movement();
-	 void Animation();
+	 void Movement(float delta_second);
+	 void Animation(float delta_second);
 };
 

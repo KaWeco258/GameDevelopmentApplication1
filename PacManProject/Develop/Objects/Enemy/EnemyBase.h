@@ -56,7 +56,7 @@ protected:
 	int eye_image;						//
 
 	// 移動アニメーションの順番
-	const int animation_num[4] = { 0, 1, 2, 1, };
+	const int animation_num[2] = { 0, 1 };
 
 public:
 	EnemyBase();
@@ -104,7 +104,7 @@ public:
 	//bool GetDestroy() const;
 
 
-private:
+protected:
 	/// <summary>
 	/// 移動処理
 	/// </summary>
