@@ -19,8 +19,9 @@ EnemyBase::EnemyBase() :
 	animation_count(0),
 	old_panel(ePanelID::NONE),
 	eye_image(NULL),
-	is_ijike(false)
+	is_ijike(false),
 	//is_power_up(false),
+	powerdown(false)
 	//is_destroy(false)
 {
 
@@ -44,9 +45,9 @@ void EnemyBase::Initialize()
 	collision.object_type = eObjectType::enemy;
 	collision.hit_object_type.push_back(eObjectType::player);
 	collision.hit_object_type.push_back(eObjectType::wall);
-	collision.hit_object_type.push_back(eObjectType::food);
-	collision.hit_object_type.push_back(eObjectType::power_food);
-	collision.hit_object_type.push_back(eObjectType::special);
+	/*collision.hit_object_type.push_back(eObjectType::food);
+	collision.hit_object_type.push_back(eObjectType::power_food);*/
+	//collision.hit_object_type.push_back(eObjectType::special);
 	collision.radius = (D_OBJECT_SIZE - 1.0f) / 2.0f;
 
 	// レイヤーの設定
@@ -56,6 +57,9 @@ void EnemyBase::Initialize()
 	mobility = eMobilityType::Movable;
 
 	velocity = Vector2D(2.0f, 0.0f);
+
+	//
+	ijike_time = 8.0f;
 }
 
 void EnemyBase::Update(float delta_second)
@@ -87,21 +91,8 @@ void EnemyBase::Update(float delta_second)
 		break;
 
 	case eEnemyState::ENEMY_HOME:
-		// 死亡中のアニメーション
-		animation_time += delta_second;
-		if (animation_time >= 0.07f)
-		{
-			animation_time = 0.0f;
-			animation_count++;
-			// 復活させる
-			if (animation_count >= eyes_animation.size())
-			{
-				enemy_state = eEnemyState::ENEMY_MOVE;
-				animation_count = 0;
-				//is_destroy = true;
-			}
-		}
-		image = eyes_animation[animation_count];
+		Movement(delta_second);
+		AnimationControl(delta_second);
 		break;
 	default:
 		break;
@@ -110,21 +101,40 @@ void EnemyBase::Update(float delta_second)
 	if (is_ijike == true)
 	{
 		enemy_state = eEnemyState::ENEMY_IJIKE;
-
+		ijike_time -= delta_second;
+		if (ijike_time <= 0)
+		{
+			enemy_state = eEnemyState::ENEMY_MOVE;
+			is_ijike = false;
+			powerdown = true;
+		}
 	}
+	else
+	{
+		powerdown = false;
+		ijike_time = 8.0f;
+	}
+
+	
 }
 
 void EnemyBase::Draw(const Vector2D& screen_offset) const
 {
-	// 親クラスの描画処理を呼び出す
-	__super::Draw(screen_offset);
+	//// 親クラスの描画処理を呼び出す
+	//__super::Draw(screen_offset);
 
 	// オフセット値を基に画像の描画を行う
 	Vector2D graph_location = this->location + screen_offset;
-	if (enemy_state!= eEnemyState::ENEMY_IJIKE)
+	if (enemy_state == eEnemyState::ENEMY_MOVE || enemy_state == eEnemyState::ENEMY_HOME)
 	{
 		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, eye_image, TRUE);
 	}
+	if (enemy_state == eEnemyState::ENEMY_MOVE || enemy_state == eEnemyState::ENEMY_IJIKE)
+	{
+		// オフセット値を基に画像の描画を行う
+		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image, TRUE);
+	}
+
 	
 
 }
@@ -168,10 +178,11 @@ void EnemyBase::OnHitCollision(GameObjectBase* hit_object)
 	}
 
 	//// 当たった、オブジェクトが通常餌だったら
-	//if (hit_object->GetCollision().object_type == eObjectType::food)
-	//{
-	//	food_count++;
-	//}
+	if (hit_object->GetCollision().object_type == eObjectType::player&&enemy_state==eEnemyState::ENEMY_IJIKE)
+	{
+		is_ijike = false;
+		enemy_state = eEnemyState::ENEMY_HOME;
+	}
 
 	//// 当たった、オブジェクトがパワー餌だったら
 	//if (hit_object->GetCollision().object_type == eObjectType::power_food)
@@ -235,8 +246,13 @@ void EnemyBase::OnHitCollision(GameObjectBase* hit_object)
 //
 void EnemyBase::SetEnemyState()
 {
-	is_ijike = true;
+	this->is_ijike = true;
 
+}
+
+bool EnemyBase::SetPowerDown()
+{
+	return powerdown;
 }
 
 /// <summary>
@@ -441,26 +457,21 @@ void EnemyBase::Movement(float delta_second)
 /// <param name="delta_second">1フレームあたりの時間</param>
 void EnemyBase::AnimationControl(float delta_second)
 {
-	//// 移動中のアニメーション
-	//animation_time += delta_second;
-	//if (animation_time >= (1.0f / 16.0f))
-	//{
-	//	animation_time = 0.0f;
-	//	animation_count++;
-	//	if (animation_count >= 2)
-	//	{
-	//		animation_count = 0;
-	//	}
-	//	image = move_animation[animation_num[animation_count]];
-
-	//	// 画像の設定
-	//	//int dir_num = (int)now_direction_state;
-	//	//if (0 <= dir_num && dir_num < 4)
-	//	//{
-	//	//	image = move_animation[(dir_num * 3) + animation_num[animation_count]];
-	//	//}
-
-	//}
+	if (enemy_state == eEnemyState::ENEMY_MOVE)
+	{
+		// 移動中のアニメーション
+		animation_time += delta_second;
+		if (animation_time >= (1.0f / 16.0f))
+		{
+			animation_time = 0.0f;
+			animation_count++;
+			if (animation_count >= 2)
+			{
+				animation_count = 0;
+			}
+			image = move_animation[animation_num[animation_count]];
+		}
+	}
 
 	if (velocity.x > 0)
 	{

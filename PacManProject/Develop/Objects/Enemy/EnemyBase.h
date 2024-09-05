@@ -54,6 +54,8 @@ protected:
 	//bool is_destroy;						// 死んだ状態になったか？
 	bool is_ijike;						// パワー餌を食べられたか？
 	int eye_image;						//
+	bool powerdown;						//
+	float ijike_time;						//
 
 	// 移動アニメーションの順番
 	const int animation_num[2] = { 0, 1 };
@@ -102,7 +104,7 @@ public:
 	/// <summary>
 	/// パワーダウンさせる
 	/// </summary>
-	//void SetPowerDown();
+	bool SetPowerDown();
 
 	/// <summary>
 	/// プレイヤーがパワーアップしてるか確認する

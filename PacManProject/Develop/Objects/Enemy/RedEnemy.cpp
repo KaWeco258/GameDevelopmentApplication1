@@ -42,7 +42,7 @@ void RedEnemy::Animation(float delta_second)
 	__super::AnimationControl(delta_second);
 
 	// 移動中のアニメーション
-	animation_time += delta_second;
+	/*animation_time += delta_second;
 	if (animation_time >= (1.0f / 16.0f))
 	{
 		animation_time = 0.0f;
@@ -55,6 +55,6 @@ void RedEnemy::Animation(float delta_second)
 
 		
 
-	}
+	}*/
 
 }
