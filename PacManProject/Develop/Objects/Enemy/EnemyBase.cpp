@@ -41,8 +41,8 @@ void EnemyBase::Initialize()
 
 	// 当たり判定の設定
 	collision.is_blocking = true;
-	collision.object_type = eObjectType::player;
-	collision.hit_object_type.push_back(eObjectType::enemy);
+	collision.object_type = eObjectType::enemy;
+	collision.hit_object_type.push_back(eObjectType::player);
 	collision.hit_object_type.push_back(eObjectType::wall);
 	collision.hit_object_type.push_back(eObjectType::food);
 	collision.hit_object_type.push_back(eObjectType::power_food);
@@ -64,15 +64,28 @@ void EnemyBase::Update(float delta_second)
 	switch (enemy_state)
 	{
 	case eEnemyState::ENEMY_IJIKE:
-		// 画像の設定
-		//image = move_animation[9];
+		Movement(delta_second);
+		// 移動中のアニメーション
+		animation_time += delta_second;
+		if (animation_time >= (1.0f / 16.0f))
+		{
+			animation_time = 0.0f;
+			animation_count++;
+			if (animation_count >= 2)
+			{
+				animation_count = 0;
+			}
+			image = move_animation[ijike_animation_num[animation_count]];
+		}
 		break;
+
 	case eEnemyState::ENEMY_MOVE:
 		// 移動処理
 		Movement(delta_second);
 		// アニメーション制御
 		AnimationControl(delta_second);
 		break;
+
 	case eEnemyState::ENEMY_HOME:
 		// 死亡中のアニメーション
 		animation_time += delta_second;
@@ -93,6 +106,12 @@ void EnemyBase::Update(float delta_second)
 	default:
 		break;
 	}
+
+	if (is_ijike == true)
+	{
+		enemy_state = eEnemyState::ENEMY_IJIKE;
+
+	}
 }
 
 void EnemyBase::Draw(const Vector2D& screen_offset) const
@@ -102,7 +121,11 @@ void EnemyBase::Draw(const Vector2D& screen_offset) const
 
 	// オフセット値を基に画像の描画を行う
 	Vector2D graph_location = this->location + screen_offset;
-	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, eye_image, TRUE);
+	if (enemy_state!= eEnemyState::ENEMY_IJIKE)
+	{
+		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, eye_image, TRUE);
+	}
+	
 
 }
 
@@ -208,6 +231,13 @@ void EnemyBase::OnHitCollision(GameObjectBase* hit_object)
 //{
 //	return is_destroy;
 //}
+
+//
+void EnemyBase::SetEnemyState()
+{
+	is_ijike = true;
+
+}
 
 /// <summary>
 /// 移動処理

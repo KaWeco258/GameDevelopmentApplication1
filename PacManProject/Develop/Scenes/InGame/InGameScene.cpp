@@ -68,6 +68,12 @@ eSceneType InGameScene::Update(const float& delta_second)
 		{
 			return eSceneType::re_start;
 		}
+
+		//
+		if (player->GetPowerUp())
+		{
+			red->SetEnemyState();
+		}
 	}
 
 	// シーン情報を返却する
@@ -187,22 +193,22 @@ void InGameScene::LoadStageMapCSV()
 				player = CreateObject<Player>(generate_location);
 				break;
 			// エネミー
-			case 'E':
+			case 'r':
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 				red = CreateObject<RedEnemy>(generate_location);
 				break;
-			case 'p':
+			/*case 'p':
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-				CreateObject<EnemyBase>(generate_location);
+				CreateObject<PinkEnemy>(generate_location);
 				break;
 			case 'b':
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-				CreateObject<EnemyBase>(generate_location);
+				CreateObject<BlueEnemy>(generate_location);
 				break;
 			case 'y':
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-				CreateObject<EnemyBase>(generate_location);
-				break;
+				CreateObject<YellowEnemy>(generate_location);
+				break;*/
 			// 上記以外
 			default:
 				break;

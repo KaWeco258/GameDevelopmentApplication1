@@ -77,14 +77,15 @@ void Scene::Initialize()
 	result_se[1] = LoadSoundMem("Resource/Sounds/Evalution/SE_ok.wav");
 	result_se[2] = LoadSoundMem("Resource/Sounds/Evalution/SE_good.wav");
 	result_se[3] = LoadSoundMem("Resource/Sounds/Evalution/SE_perfect.wav");
+
 	//制限時間の初期化
 	GameTime = TIMELIMIT;
 	//経過時間の初期化
 	t_count = 0;
 	result_count = 0;
-
 	//0になったらフィニッシュと表示させる用の変数
 	ResultImage = Result[0];
+
 	//プレイヤーを生成する
 	CreateObject<Player>(Vector2D(320.0f, 50.0f));
 }
@@ -300,12 +301,8 @@ void Scene::Update()
 	PlaySoundMem(main_bgm[0], DX_PLAYTYPE_LOOP, FALSE);
 	
 	
-	
-		
-		
 	//制限時間の更新
 	GameTime--;
-	
 	//制限時間が無くなったらの処理
 	if (GameTime < 0)
 	{
@@ -372,21 +369,22 @@ void Scene::TimeUpDraw() const
 	DrawBoxAA(0.0, 580.0, 941.0, 650.0, GetColor(0, 0, 0), TRUE);
 	//タイマーの画像の描画
 	DrawGraph(30.0, 588.0, ti, FALSE);
+
 	//制限時間の描画
 	DrawExtendGraph(90.0, 588.0, 140.0, 645.0, number[GameTime / 150 / 10], TRUE);			//10の位
 	DrawExtendGraph(141.0, 588.0, 190.0, 645.0, number[GameTime / 150 % 10], TRUE);		//1の位
-	//DrawFormatString(141.0, 588.0, GetColor(255,0,0),"%d", GameTime / 150 , TRUE);		
+	
+	//数字の描画
+	DrawExtendGraph(370.0, 588.0, 420.0, 645.0, number[SumScore / 1000], TRUE);						//1000の位
+	DrawExtendGraph(420.0, 588.0, 470.0, 645.0, number[(SumScore % 1000) / 100], TRUE);				//100の位
+	DrawExtendGraph(470.0, 588.0, 520.0, 645.0, number[(SumScore % 1000 % 100) / 10], TRUE);		//10の位
+	DrawExtendGraph(520.0, 588.0, 570.0, 645.0, number[(SumScore % 1000 % 100) % 10], TRUE);		//１の位
+
 	//スコアという文字の画像の描画
 	DrawExtendGraph(230.0, 588.0, 350.0, 645.0, si, FALSE);
-	//
-	//DrawFormatString(420.0, 408.0, GetColor(0, 0, 0), "%d", SumScore, TRUE);
-	DrawExtendGraph(370.0, 588.0, 420.0, 645.0, number[SumScore / 1000], TRUE);
-	DrawExtendGraph(420.0, 588.0, 470.0, 645.0, number[(SumScore % 1000) / 100], TRUE);
-	DrawExtendGraph(470.0, 588.0, 520.0, 645.0, number[(SumScore % 1000 % 100) / 10], TRUE);
-	DrawExtendGraph(520.0, 588.0, 570.0, 645.0, number[(SumScore % 1000 % 100) % 10], TRUE);
 	//ハイスコアという文字の画像の描画
 	//DrawExtendGraph(530.0, 584.0,700.0,645.0, hsi, FALSE);
-
+	//DrawFormatString(141.0, 588.0, GetColor(255,0,0),"%d", GameTime / 150 , TRUE);		
 
 
 		

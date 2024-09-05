@@ -57,6 +57,7 @@ protected:
 
 	// 移動アニメーションの順番
 	const int animation_num[2] = { 0, 1 };
+	const int ijike_animation_num[2] = {16 ,17 };
 
 public:
 	EnemyBase();
@@ -91,6 +92,12 @@ public:
 	/// </summary>
 	/// <returns>プレイヤーの状態</returns>
 	//bool GetPowerUp() const;
+
+	/// <summary>
+	/// プレイヤーの状態を取得する
+	/// </summary>
+	/// <returns>プレイヤーの状態</returns>
+	void SetEnemyState();
 
 	/// <summary>
 	/// パワーダウンさせる

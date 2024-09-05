@@ -53,12 +53,7 @@ void RedEnemy::Animation(float delta_second)
 		}
 		image = move_animation[animation_num[animation_count]];
 
-		// ‰æ‘œ‚Ìİ’è
-		//int dir_num = (int)now_direction_state;
-		//if (0 <= dir_num && dir_num < 4)
-		//{
-		//	image = move_animation[(dir_num * 3) + animation_num[animation_count]];
-		//}
+		
 
 	}
 
