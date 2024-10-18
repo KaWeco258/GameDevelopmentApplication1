@@ -5,6 +5,9 @@
 class RedEnemy : public  EnemyBase
 {
 public:
+
+	const int animation_red[2] = { 0, 1 };
+public:
 	RedEnemy();
 	virtual ~RedEnemy();
 

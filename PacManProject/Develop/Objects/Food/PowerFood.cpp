@@ -18,7 +18,7 @@ void PowerFood::Initialize()
 {
 	// 画像の読み込み
 	ResourceManager* rm = ResourceManager::GetInstance();
-	image = rm->GetImages("Resource/Images/big_dot.png")[0];
+	player_image = rm->GetImages("Resource/Images/big_dot.png")[0];
 
 	// 当たり判定の設定
 	collision.is_blocking = false;
@@ -46,7 +46,7 @@ void PowerFood::Draw(const Vector2D& screen_offset) const
 	{
 		// オフセット値を基に画像の描画を行う
 		Vector2D graph_location = this->location + screen_offset;
-		DrawRotaGraphF(graph_location.x, graph_location.y, 0.25, 0.0, image, TRUE);
+		DrawRotaGraphF(graph_location.x, graph_location.y, 0.25, 0.0, player_image, TRUE);
 	}
 }
 

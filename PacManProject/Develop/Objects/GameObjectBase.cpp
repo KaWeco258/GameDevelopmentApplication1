@@ -5,7 +5,10 @@
 GameObjectBase::GameObjectBase() :
 	owner_scene(nullptr),
 	location(0.0f),
-	image(NULL),
+	red_image(NULL),
+	blue_image(NULL),
+	yellow_image(NULL),
+	pink_image(NULL),
 	z_layer(0),
 	mobility(eMobilityType::Stationary)
 {
@@ -42,7 +45,11 @@ void GameObjectBase::Draw(const Vector2D& screen_offset) const
 {
 	// オフセット値を基に画像の描画を行う
 	Vector2D graph_location = this->location + screen_offset;
-	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image, TRUE);
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, player_image, TRUE);
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, red_image, TRUE);
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, blue_image, TRUE);
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, yellow_image, TRUE);
+	DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, pink_image, TRUE);
 }
 
 /// <summary>

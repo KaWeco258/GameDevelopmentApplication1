@@ -15,12 +15,14 @@ void RedEnemy::Initialize()
 	__super::Initialize();
 	ResourceManager* rm = ResourceManager::GetInstance();
 	move_animation = rm->GetImages("Resource/Images/monster.png", 20, 20, 1, 32, 32);
-	image = move_animation[0];
+	red_image = move_animation[0];
 }
 
 void RedEnemy::Update(float delta_second)
 {
 	__super::Update(delta_second);
+	red_image = animation_red[ijike_animation_num[animation_count]];
+
 }
 
 void RedEnemy::Draw(const Vector2D& screen_offset) const

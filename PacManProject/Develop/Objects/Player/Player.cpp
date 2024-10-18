@@ -59,7 +59,7 @@ void Player::Update(float delta_second)
 	{
 		case ePlayerState::IDLE:
 			// 画像の設定
-			image = move_animation[9];
+			player_image = move_animation[9];
 			break;
 		case ePlayerState::MOVE:
 			// 移動処理
@@ -82,7 +82,7 @@ void Player::Update(float delta_second)
 					is_destroy = true;
 				}
 			}
-			image = dying_animation[animation_count];
+			player_image = dying_animation[animation_count];
 			break;
 		default:
 			break;
@@ -407,7 +407,7 @@ void Player::AnimationControl(float delta_second)
 		int dir_num = (int)now_direction_state;
 		if (0 <= dir_num && dir_num < 4)
 		{
-			image = move_animation[(dir_num * 3) + animation_num[animation_count]];
+			player_image = move_animation[(dir_num * 3) + animation_num[animation_count]];
 		}
 
 	}

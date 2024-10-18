@@ -9,6 +9,9 @@
 #include "../../Utility/ResourceManager.h"
 #include "DxLib.h"
 #include <fstream>
+#include "../../Objects/Enemy/BlueEnemy.h"
+#include "../../Objects/Enemy/PinkEnemy.h"
+#include "../../Objects/Enemy/YellowEnemy.h"
 
 InGameScene::InGameScene() 
 	: player(nullptr)
@@ -16,6 +19,7 @@ InGameScene::InGameScene()
 	, back_ground_image(NULL)
 	, back_ground_sound(NULL)
 	, pause_flag(false)
+	, now_ijike(false)
 {
 
 }
@@ -213,18 +217,18 @@ void InGameScene::LoadStageMapCSV()
 				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
 				red = CreateObject<RedEnemy>(generate_location);
 				break;
-			//case 'p':
-			//	generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-			//	CreateObject<PinkEnemy>(generate_location); //PinkEnemy
-			//	break;
-			//case 'b':
-			//	generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-			//	CreateObject<BlueEnemy>(generate_location);//BlueEnemy
-			//	break;
-			//case 'y':
-			//	generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
-			//	CreateObject<YellowEnemy>(generate_location);//YellowEnemy
-			//	break;//EnemyBase
+			case 'p':
+				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
+				CreateObject<PinkEnemy>(generate_location); //PinkEnemy
+				break;
+			case 'b':
+				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
+				CreateObject<BlueEnemy>(generate_location);//BlueEnemy
+				break;
+			case 'y':
+				generate_location = (Vector2D((float)(spos_x - 1), (float)(spos_y - 1)) * D_OBJECT_SIZE) + (D_OBJECT_SIZE / 2.0f);
+				CreateObject<YellowEnemy>(generate_location);//YellowEnemy
+				break;//EnemyBase
 			// 上記以外
 			default:
 				break;

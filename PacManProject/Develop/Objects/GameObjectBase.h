@@ -21,7 +21,12 @@ protected:
 	class SceneBase*	owner_scene;	// 所有するシーン情報
 	Vector2D			location;		// 位置座標
 	CapsuleCollision	collision;		// 当たり判定情報
-	int					image;			// 画像情報
+	int					red_image;			//赤敵 画像情報
+	int					blue_image;			// 青敵画像情報
+	int					yellow_image;			//黄敵 画像情報
+	int					pink_image;			// 桃敵画像情報
+	int					player_image;			// パックマン画像情報
+	int					image;			// パックマン画像情報
 	int					z_layer;		// レイヤー情報
 	eMobilityType		mobility;		// 可動性
 

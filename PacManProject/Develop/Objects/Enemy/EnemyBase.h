@@ -53,12 +53,16 @@ protected:
 	//bool is_power_up;						// パワー餌を食べたか？
 	//bool is_destroy;						// 死んだ状態になったか？
 	bool is_ijike;						// パワー餌を食べられたか？
-	int eye_image;						//
-	bool powerdown;						//
-	float ijike_time;						//
+	int eye_image;						//目の画像
+	bool powerdown;						//プレイヤーの情報
+	float ijike_time;						//いじけの時間
 
+protected:
 	// 移動アニメーションの順番
-	const int animation_num[2] = { 0, 1 };
+	const int animation_red[2] = { 0, 1 };
+	const int animation_blue[2] = { 4, 5 };
+	const int animation_pink[2] = { 2, 3 };
+	const int animation_yellow[2] = { 6, 7 };
 	const int ijike_animation_num[2] = {16 ,17 };
 
 public:

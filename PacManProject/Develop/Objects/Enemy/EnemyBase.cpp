@@ -16,6 +16,7 @@ EnemyBase::EnemyBase() :
 	next_direction_state(eDirectionState::ENEMY_LEFT),
 	//food_count(0),
 	animation_time(0.0f),
+	ijike_time(0.0f),
 	animation_count(0),
 	old_panel(ePanelID::NONE),
 	eye_image(NULL),
@@ -38,16 +39,13 @@ void EnemyBase::Initialize()
 	ResourceManager* rm = ResourceManager::GetInstance();
 	eyes_animation = rm->GetImages("Resource/Images/eyes.png", 4, 4, 1, 32, 32);
 	eye_image = eyes_animation[1];
-	//dying_animation = rm->GetImages("Resource/Images/eyes.png", 11, 11, 1, 32, 32);
 
 	// 当たり判定の設定
 	collision.is_blocking = true;
 	collision.object_type = eObjectType::enemy;
 	collision.hit_object_type.push_back(eObjectType::player);
 	collision.hit_object_type.push_back(eObjectType::wall);
-	/*collision.hit_object_type.push_back(eObjectType::food);
-	collision.hit_object_type.push_back(eObjectType::power_food);*/
-	//collision.hit_object_type.push_back(eObjectType::special);
+	
 	collision.radius = (D_OBJECT_SIZE - 1.0f) / 2.0f;
 
 	// レイヤーの設定
@@ -58,7 +56,7 @@ void EnemyBase::Initialize()
 
 	velocity = Vector2D(2.0f, 0.0f);
 
-	//
+	//いじける時間
 	ijike_time = 8.0f;
 }
 
@@ -79,7 +77,7 @@ void EnemyBase::Update(float delta_second)
 			{
 				animation_count = 0;
 			}
-			image = move_animation[ijike_animation_num[animation_count]];
+			
 		}
 		break;
 
@@ -122,18 +120,22 @@ void EnemyBase::Draw(const Vector2D& screen_offset) const
 {
 	//// 親クラスの描画処理を呼び出す
 	//__super::Draw(screen_offset);
-
-	// オフセット値を基に画像の描画を行う
 	Vector2D graph_location = this->location + screen_offset;
+	// オフセット値を基に画像の描画を行う
+	if (enemy_state == eEnemyState::ENEMY_MOVE || enemy_state == eEnemyState::ENEMY_IJIKE)
+	{
+		// オフセット値を基に画像の描画を行う
+		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, red_image, TRUE);
+		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, blue_image, TRUE);
+		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, yellow_image, TRUE);
+		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, pink_image, TRUE);
+	}
+	
 	if (enemy_state == eEnemyState::ENEMY_MOVE || enemy_state == eEnemyState::ENEMY_HOME)
 	{
 		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, eye_image, TRUE);
 	}
-	if (enemy_state == eEnemyState::ENEMY_MOVE || enemy_state == eEnemyState::ENEMY_IJIKE)
-	{
-		// オフセット値を基に画像の描画を行う
-		DrawRotaGraphF(graph_location.x, graph_location.y, 1.0, 0.0, image, TRUE);
-	}
+	
 
 	
 
@@ -184,18 +186,7 @@ void EnemyBase::OnHitCollision(GameObjectBase* hit_object)
 		enemy_state = eEnemyState::ENEMY_HOME;
 	}
 
-	//// 当たった、オブジェクトがパワー餌だったら
-	//if (hit_object->GetCollision().object_type == eObjectType::power_food)
-	//{
-	//	food_count++;
-	//	is_power_up = true;
-	//}
 
-	//// 当たったオブジェクトが敵だったら
-	//if (hit_object->GetCollision().object_type == eObjectType::enemy)
-	//{
-	//	player_state = eEnemyState::DIE;
-	//}
 }
 
 //eEnemyState EnemyBase::GetEnemyState() const
@@ -203,47 +194,9 @@ void EnemyBase::OnHitCollision(GameObjectBase* hit_object)
 //	return eEnemyState();
 //}
 
-/// <summary>
-/// 餌を食べた数取得
-/// </summary>
-/// <returns>餌を食べた数</returns>
-//int EnemyBase::GetFoodCount() const
-//{
-//	return food_count;
-//}
 
-/// <summary>
-/// プレイヤーの状態を取得する
-/// </summary>
-/// <returns>プレイヤーの状態</returns>
-//eEnemyState EnemyBase::GetEnemyState() const
-//{
-//	return enemy_state;
-//}
 
-/// <summary>
-/// プレイヤーがパワーアップしてるか確認する
-/// </summary>
-/// <returns>プレイヤーの状態</returns>
-//bool EnemyBase::GetPowerUp() const
-//{
-//	return is_power_up;
-//}
 
-/// <summary>
-/// パワーダウンさせる
-/// </summary>
-//void EnemyBase::SetPowerDown()
-//{
-//	is_power_up = false;
-//}
-//
-//bool EnemyBase::GetDestroy() const
-//{
-//	return is_destroy;
-//}
-
-//
 void EnemyBase::SetEnemyState()
 {
 	this->is_ijike = true;
@@ -469,7 +422,10 @@ void EnemyBase::AnimationControl(float delta_second)
 			{
 				animation_count = 0;
 			}
-			image = move_animation[animation_num[animation_count]];
+			red_image = move_animation[animation_red[animation_count]];
+			blue_image = move_animation[animation_blue[animation_count]];
+			yellow_image = move_animation[animation_yellow[animation_count]];
+			pink_image = move_animation[animation_pink[animation_count]];
 		}
 	}
 
